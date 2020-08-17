@@ -1,8 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcryptjs')
-const { asyncHandler } = require('../utils');
-const { requireAuth, getUserToken } = require('../auth');
+const { asyncHandler } = require('../middlewares/utils');
+const { requireAuth, getUserToken } = require('../middlewares/auth');
 const { check, validationResult } = require('express-validator')
+const {User} = require('../db/models')
 
 const router = express.Router();
 
@@ -33,10 +34,34 @@ const validateEmailPassword = [
         .withMessage("Please provide a valide email")
 ]
 
+//signing up
+router.post('/signup', validateUserFields, asyncHandler(async (req, res) => {
+    const { username, firstName, lastName, email, password } = req.body // Takes content from form
+    const hashedPassword = await bcrypt.hash(password, 10);
+    try{
+        const user = await User.create({ username: username, first_name: firstName, last_name: lastName, email: email, hashed_password: hashedPassword });
+        const token = getUserToken(user);
+        
+        res.status(201).json({
+            user: { id: user.id },
+            token
+        })
 
-//logging in
-router.post('/token', validateEmailPassword, asyncHandler(async (req, res, next) => {
+    }catch(err){
+        res.status(422).send(err.message)
+    }
+
+}))
+
+
+//signing in
+router.post('/signin', validateEmailPassword, asyncHandler(async (req, res, next) => {
     const { email, password } = req.body
+    
+    if(!email || !password){
+        return res.status(422).send({error: 'Must provide email and password'})
+    }
+    console.log(password)
     const user = await User.findOne({
         where: {
             email
@@ -55,6 +80,7 @@ router.post('/token', validateEmailPassword, asyncHandler(async (req, res, next)
         token,
         user: { id: user.id }
     });
+
 
 
 

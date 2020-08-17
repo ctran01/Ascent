@@ -1,17 +1,18 @@
 {
-  "name": "Express",
+  "name": "express",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./bin/www",
   "scripts": {
     "start": "per-env",
     "start:development": "nodemon -r dotenv/config ./bin/www",
-    "start:production": "node ./bin/www"
+    "start:production": "./bin/www"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
