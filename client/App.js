@@ -8,6 +8,8 @@ import RouteDetailScreen from './app/screens/RouteDetailScreen';
 import SignupScreen from './app/screens/SignupScreen';
 import LoadingScreen from './app/screens/LoadingScreen';
 import MapScreen from './app/screens/MapScreen';
+import AccountScreen from './app/screens/AccountScreen';
+import FollowedScreen from './app/screens/FollowedScreen';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 
@@ -15,22 +17,22 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 
 const navigator = createStackNavigator(
   {
-    Loading: LoadingScreen,
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
       Signup: SignupScreen
     }),
     mainFlow: createBottomTabNavigator({
-      Home: HomeScreen
+      homeFlow: createStackNavigator({
+        Home: HomeScreen,
+        Search: SearchScreen,
+        Map: MapScreen,
+        Followed: FollowedScreen,
+        AreaDetail: AreaDetailScreen,
+        RouteDetail: RouteDetailScreen,
+      }),
+      Account: AccountScreen
     })
-    
-  {
-    initialRouteName: "LandingPage",
-    defaultNavigationOptions: {
-      title: "App",
-    },
-  }
+  }, 
 );
 
 export default createAppContainer(navigator);
-

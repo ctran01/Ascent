@@ -8,7 +8,7 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:4001" }));
+app.use(cors({ origin: "http://localhost:19002" }));
 
 
 
