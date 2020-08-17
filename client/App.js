@@ -1,5 +1,6 @@
 import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
+import React from 'react'
 import SearchScreen from './app/screens/SearchScreen'
 import AreaDetailScreen from './app/screens/AreaDetailScreen'
 import HomeScreen from './app/screens/HomeScreen'
@@ -11,11 +12,13 @@ import MapScreen from './app/screens/MapScreen';
 import AccountScreen from './app/screens/AccountScreen';
 import FollowedScreen from './app/screens/FollowedScreen';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
+import {Provider as UserProvider} from './app/context/UserContext'
+import {setNavigator} from './app/setNavigator'
 
 
 
 
-const navigator = createStackNavigator(
+const navigator = createSwitchNavigator(
   {
     loginFlow: createStackNavigator({
       Signin: SigninScreen,
@@ -35,4 +38,12 @@ const navigator = createStackNavigator(
   }, 
 );
 
-export default createAppContainer(navigator);
+const App = createAppContainer(navigator);
+
+export default () =>{
+  return(
+    <UserProvider>
+      <App ref={(navigator)=> {setNavigator(navigator)}}/>
+    </UserProvider>
+  )
+}

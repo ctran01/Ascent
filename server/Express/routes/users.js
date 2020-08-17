@@ -11,12 +11,6 @@ validateUserFields = [
     check("username")
         .exists({ checkFalsy: true })
         .withMessage("Please provide a username"),
-    check("firstName")
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a first name"),
-    check("lastName")
-        .exists({ checkFalsy: true })
-        .withMessage("Please provide a last name"),
     check("email")
         .exists({ checkFalsy: true })
         .withMessage("Please provide a valid email"),
@@ -36,10 +30,10 @@ const validateEmailPassword = [
 
 //signing up
 router.post('/signup', validateUserFields, asyncHandler(async (req, res) => {
-    const { username, firstName, lastName, email, password } = req.body // Takes content from form
+    const { username, email, password } = req.body // Takes content from form
     const hashedPassword = await bcrypt.hash(password, 10);
     try{
-        const user = await User.create({ username: username, first_name: firstName, last_name: lastName, email: email, hashed_password: hashedPassword });
+        const user = await User.create({ username: username, email: email, hashed_password: hashedPassword });
         const token = getUserToken(user);
         
         res.status(201).json({

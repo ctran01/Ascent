@@ -15,6 +15,9 @@ app.use(usersRouter)
 
 
 
+app.get("/", (req,res)=>{
+    res.send({"message" : "You're Connected"})
+})
 // Catch unhandled requests and forward to error handler.
 app.use((req, res, next) => {
     const err = new Error("The requested resource couldn't be found.");

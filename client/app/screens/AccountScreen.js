@@ -1,11 +1,11 @@
-import React from "react";
-import {View, Text, StyleSheet} from 'react-native'
+import React,{useContext} from "react";
+import {View, Text, StyleSheet, Button} from 'react-native'
+import {Context as UserContext} from '../context/UserContext'
 const AccountScreen = () => {
+    const {signout} = useContext(UserContext)
     return (
         <View>
-            <Text>
-                AccountScreen
-            </Text>
+            <Button title={"Sign out"} onPress={()=>signout}></Button>
         </View>
     );
 }
