@@ -1,10 +1,11 @@
 import React from "react";
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, Button} from 'react-native'
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
     return (
         <View>
-            <Text>HomeScreen</Text>
+            <Button title={"To Search Screen"} onPress={()=>navigation.navigate('Search')}/>
+            <Button title={"To Maps"} onPress={()=>navigation.navigate('Maps')}/>
         </View>
     );
 }
