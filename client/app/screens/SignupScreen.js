@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {View, StyleSheet, ImageBackground, SafeAreaView, TouchableOpacity } from 'react-native';
+import {View, StyleSheet, ImageBackground, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import {Text, Input, Button} from 'react-native-elements'
 import {NavigationEvents} from 'react-navigation'
 import Spacer from '../components/Spacer'
@@ -19,6 +19,7 @@ const SignupScreen = ({navigation}) => {
   return (
     <ImageBackground style={styles.background} source={require("../images/background2.jpg")}>
     <SafeAreaView>
+      <Image style={styles.image} source={require('../images/logo2.png')}></Image>
       <Spacer>
         <Text h3>Sign Up for Ascent</Text>
       </Spacer>
@@ -48,7 +49,7 @@ const SignupScreen = ({navigation}) => {
        />
      {state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text>: null}
       <Spacer>
-       <Button title={"Sign Up"} onPress={()=> signup({username,email,password})} />
+       <Button title={"Create Account"} onPress={()=> signup({username,email,password})} />
       </Spacer>
     <NavigationEvents 
       //  onWillFocus={()=>{}} Right before navigating to screen
@@ -80,7 +81,12 @@ const styles=StyleSheet.create({
   background:{
     flex:1
   },
-
+  image:{
+    width:500,
+    height:130,
+    marginLeft:20,
+    marginTop: 20
+  },
   errorMessage:{
     color: "red",
     fontSize: 16,

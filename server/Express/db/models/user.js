@@ -19,6 +19,62 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     // associations can be defined here
+    User.belongsToMany(model.Area,{
+      as: 'followedAreas',
+      through: {
+        model: 'Follower',
+        scrope: {
+          followable_type: 'area'
+        }
+      },
+      foreignKey: 'user_id',
+      constraints: false
+    })
+
+    User.belongsToMany(model.Route, {
+      as: 'followedRoutes',
+      through:{
+        model: 'Follower',
+        scope: {
+          followable_type: 'route'
+        }
+      },
+      foreignKey: 'user_id',
+      constraints: false
+    })
+
+    //To see if this user follows any other user
+    User.belongsToMany(models.User, {
+      as: 'followedUsers',
+      through: {
+          model: 'Follower',
+          scope: {
+              followableType: 'user'
+          }
+
+      },
+      foreignKey: 'user_id',
+      constraints: false
+    })
+
+    //To ensure that this user can also be followed 
+    User.belongsToMany(models.User, {
+      as: 'followers',
+      through: {
+          model: 'Follower',
+          scope: {
+              followableType: 'user'
+          }
+
+      },
+      foreignKey: 'followable_id',
+      constraints: false
+    })
+
+    User.hasMany(models.Follower,{
+      foreignKey: "user_id"
+    })
+
   };
   User.prototype.validatePassword = function (password) {
     // Note that since this function is a model instance method,
