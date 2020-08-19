@@ -19,31 +19,37 @@ const SignupScreen = ({navigation}) => {
   return (
     <ImageBackground style={styles.background} source={require("../images/background2.jpg")}>
     <SafeAreaView>
-      <Image style={styles.image} source={require('../images/logo2.png')}></Image>
+      <Image style={styles.image} source={require('../images/logo3.png')}></Image>
       <Spacer>
         <Text h3>Sign Up for Ascent</Text>
       </Spacer>
       <Input placeholder={"  Username"}
+        placeholderTextColor="black"
         value={username}
         onChangeText={setUsername}
         autoCapitalize="none"
         autoCorrect={false}
+        inputContainerStyle={{ borderColor: "black" }}
         leftIcon={<MaterialIcons name="person-outline" size={24} color="black" />} />
       <Spacer />
       <Input
         placeholder={"  Email"}
+        placeholderTextColor="black"
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
         autoCorrect={false}
+        inputContainerStyle={{ borderColor: "black" }}
         leftIcon={<MaterialIcons name="email" size={24} color="black" />} />
       <Spacer />
       <Input placeholder={"  Password"}
+        placeholderTextColor="black"
         value={password}
         onChangeText={setPassword}
         autoCapitalize="none"
         autoCorrect={false}
         secureTextEntry={true}
+        inputContainerStyle={{ borderColor: "black" }}
         leftIcon={<FontAwesome name="lock" size={24} color="black" />}
        // passwordRules
        />
@@ -82,7 +88,7 @@ const styles=StyleSheet.create({
     flex:1
   },
   image:{
-    width:500,
+    width:400,
     height:130,
     marginLeft:20,
     marginTop: 20

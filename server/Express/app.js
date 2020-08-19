@@ -3,15 +3,20 @@ const morgan = require("morgan");
 const { environment } = require('./config');
 const cors = require('cors');
 const bodyParser = require("body-parser")
-
-const app = express();
 const usersRouter = require("./routes/users")
+const areasRouter = require("./routes/areas")
+const routesRouter = require('./routes/route')
+const followersRouter = require('./routes/followers')
+const app = express();
+
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 // app.use(cors({ origin: "http://localhost:19002" }));
 
 app.use(usersRouter)
-
+app.use('/area',areasRouter)
+app.use('/route',routesRouter)
+app.use('/follow/',followersRouter)
 
 
 

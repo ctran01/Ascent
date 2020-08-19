@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     // associations can be defined here
-    User.belongsToMany(model.Area,{
+    User.belongsToMany(models.Area,{
       as: 'followedAreas',
       through: {
         model: 'Follower',
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       constraints: false
     })
 
-    User.belongsToMany(model.Route, {
+    User.belongsToMany(models.Route, {
       as: 'followedRoutes',
       through:{
         model: 'Follower',

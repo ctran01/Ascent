@@ -20,10 +20,10 @@ import {setNavigator} from './app/setNavigator'
 
 const navigator = createSwitchNavigator(
   {
-    loginFlow: createStackNavigator({
-      Signin: SigninScreen,
-      Signup: SignupScreen
-    }),
+    // loginFlow: createStackNavigator({
+    //   Signin: SigninScreen,
+    //   Signup: SignupScreen
+    // }),
     mainFlow: createBottomTabNavigator({
       homeFlow: createStackNavigator({
         Home: HomeScreen,
@@ -34,6 +34,16 @@ const navigator = createSwitchNavigator(
         RouteDetail: RouteDetailScreen,
       }),
       Account: AccountScreen
+    },{
+      tabBarOptions:{
+        style:{
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          height: 50
+        }
+      }
     })
   }, 
 );
