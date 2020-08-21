@@ -19,21 +19,39 @@ const areaReducer =(state,action)=>{
 const getArea = (dispatch)=>{
   return async ()=>{
     const res = await apiServer.get("/area");
-    
     dispatch({type: "get_area", payload: res.data})
   }
 }
 
 //Add area
 const addArea =(dispatch) =>{
-  return async(name,description)=>{
-    const user_id = await AsyncStorage.getItem('user_id')
+  return async(name,description,navigateAway,alertMessage)=>{
+    const userid = await AsyncStorage.getItem('userid')
     const res = await apiServer.post("/area",{
       name: name,
       description: description,
-      user_id: user_id
+      user_id: userid
     })
+    if(navigateAway){
+      navigateAway();
+    }
+    if(alertMessage){
+      alertMessage();
+    }
   }
 }
 
-export const {Provider,Context} =  createDataContext(areaReducer, {getArea}, [])
+//Edit Area
+
+const editArea = (dispatch)=>{
+  return async(name,description,callback1,callback2)=>{
+    const userid = await AsyncStorage.getItem('userid')
+    const res = await apiServer.put(`/area/${id}`)
+    dispatch({type: "edit_area", payload: {id,name,description}})
+    if(callback1){
+      callback1();
+    }
+  }
+}
+
+export const {Provider,Context} =  createDataContext(areaReducer, {getArea, addArea}, [])

@@ -55,8 +55,7 @@ router.post('/signin', validateEmailPassword, asyncHandler(async (req, res, next
     if(!email || !password){
         return res.status(422).send({error: 'Must provide email and password'})
     }
-    console.log(password)
-    console.log(req)
+
     const user = await User.findOne({
         where: {
             email

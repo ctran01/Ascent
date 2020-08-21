@@ -10,9 +10,9 @@ const userReducer = (state,action) =>{
     case 'clear_error_message':
       return {...state, errorMessage: ''}
     case 'signin':
-      return {token: action.payload.token, errorMessage:'', user_id: action.payload.user_id}
+      return {token: action.payload.token, errorMessage:'', userid: action.payload.userid}
     case 'signout':
-      return {token: null, errorMessage: ''}
+      return {token: null, errorMessage: '', userid: null}
     default:
       return state;
   }
@@ -22,9 +22,9 @@ const userReducer = (state,action) =>{
 const tryLocalSignin = (dispatch)=>{
   return async()=>{
     const token = await AsyncStorage.getItem('token');
-    // const user_id = await AsyncStorage.getItem('user_id')
+    const id = await AsyncStorage.getItem('userid')
     if(token){
-      dispatch({type: 'signin', payload: {token:token}})
+      dispatch({type: 'signin', payload: {token:token, userid:id}})
       navigate('mainFlow')
     }else{
       navigate('loginFlow')
@@ -44,8 +44,10 @@ const signup = (dispatch) =>{
   return async ({username,email, password, navigation})=>{
     try{
       const res = await apiServer.post('/signup', {username,email,password});
+      const id = res.data.user.id.toString()
       await AsyncStorage.setItem('token', res.data.token) //Sets token to "local storage"
-      dispatch({type: 'signin', payload: res.data.token}) //Set token to state
+      await AsyncStorage.setItem('userid',id)
+      dispatch({type: 'signin', payload: {token: res.data.token, userid: id}}) //Set token to state
       navigate('mainFlow')
     }catch(err){
       console.log(err)
@@ -58,11 +60,11 @@ const signin = (dispatch) =>{
   return async ({email,password})=>{
     try{
       const res = await apiServer.post('/signin', {email,password});
+      const id = res.data.user.id.toString()
       await AsyncStorage.setItem('token',res.data.token)
-      // await AsyncStorage.setItem('userid',res.data.user.id)
-      // await AsyncStorage.multiSet([['token',res.data.token],['userid',res.data.user.id]])
+      await AsyncStorage.setItem('userid',id)
       
-      dispatch({type: 'signin', payload: {token: res.data.token, user_id: res.data.user.id}})
+      dispatch({type: 'signin', payload: {token: res.data.token, userid: id}})
       navigate('mainFlow')
     }catch(err){
       console.log(err)
@@ -74,10 +76,11 @@ const signin = (dispatch) =>{
 const signout = (dispatch) =>{
   return async ()=>{
     const token = await AsyncStorage.removeItem('token')
+    const id = await AsyncStorage.removeItem('id')
     dispatch({type: 'signout'})
     navigate('loginFlow')
   }
 }
 
 
-export const {Provider,Context} = createDataContext( userReducer, {signin,signout,signup,clearErrorMessage,tryLocalSignin}, {token: null, errorMessage:'', user_id: null})
+export const {Provider,Context} = createDataContext( userReducer, {signin,signout,signup,clearErrorMessage,tryLocalSignin}, {token: null, errorMessage:'', userid: null})
