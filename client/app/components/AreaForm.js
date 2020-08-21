@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpactity} from 'react-native'
+import {View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpactity, Keyboard} from 'react-native'
 import {Input, Button, Text} from 'react-native-elements'
 import { MaterialIcons } from '@expo/vector-icons'; 
 import Spacer from './Spacer';
@@ -15,34 +15,50 @@ const AreaForm = ({initialValues,onSubmit,submitButtonText}) =>{
         <Text h3>Add an area</Text>
         <Input 
           label="Name of Area"
-          placeholder={"Name"}
-          placeholderTextColor="black"
+          
+          placeholderTextColor="white"
           value={name}
           onChangeText={setName}
           autoCorrect={false}
-          inputContainerStyle={{ borderColor: "black" }}
-          leftIcon={<MaterialIcons name="person-outline" size={24} color="black" />} 
+          inputContainerStyle={styles.inputContainter}
+          inputStyle={styles.input}
+          labelStyle={styles.label}
         />
         <View style={{height:200}}>
         <Input 
           label="Description"
-          placeholder={"Description"}
-          placeholderTextColor="black"
+          placeholder={"Enter Description Here"}
+          placeholderTextColor="white"
           value={description}
           onChangeText={setDescription}
           autoCorrect={false}
           inputContainerStyle={{ borderBottomWidth:0, borderColor: "black" }}
+          labelStyle={styles.label}
           multiline={true}
-          numberOfLines={10} 
+          onSubmitEditing={()=>Keyboard.dismiss()}
         />
         </View>
         
-        <Button style={{marginTop:100}}title={submitButtonText} onPress={()=> {onSubmit(name,description)}}/>
+        <Button style={{marginTop:100}} title={submitButtonText} buttonStyle={{ backgroundColor:"#1359c4"}} onPress={()=> {onSubmit(name,description)}}/>
       </SafeAreaView>
     )
 
 
 }
+
+const styles=StyleSheet.create({
+  inputContainter:{
+     borderWidth: 1 ,
+      borderColor:"white"
+  },
+  input:{
+    color:"white"
+  },
+  label:{
+    color:"white",
+    paddingBottom:5
+  }
+})
 
 AreaForm.defaultProps={
   initialValues:{

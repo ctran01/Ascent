@@ -5,9 +5,10 @@ import {Context as UserContext} from '../context/UserContext'
 
 const AccountScreen = () => {
     const {signout} = useContext(UserContext)
-    
+    //TODO add picture/ add image_url attribute on backend
     return (
         <SafeAreaView>
+            
             <Text>Your Account</Text>
             <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Sign out"} onPress={signout}></Button>
         </SafeAreaView>

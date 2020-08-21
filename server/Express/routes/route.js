@@ -1,7 +1,7 @@
 const express = require('express');
 const {requireAuth} = require('../middlewares/auth');
 const {asyncHandler} = require('../middlewares/utils');
-const {Route} = require('../db/models');
+const {Route, User} = require('../db/models');
 
 
 const router = express.Router();
@@ -28,16 +28,33 @@ router.get('/:id', asyncHandler(async(req,res,next)=>{
 
 }))
 
+
+//Add Route
 router.post('/', asyncHandler(async(req,res,next)=>{
   const { name, description, grade,type,latitude,longitude,user_id,area_id} = req.body
   try{
-    const area = await Route.create({name,description,grade,type,latitude,longitude,user_id, area_id})
-    res.status(201).json({Route})
+    const route = await Route.create({name,description,grade,type,latitude,longitude,user_id, area_id})
+    res.status(201).json({route})
   }catch(err){
     res.status(422).send(err.message)
   }
 
 }))
 
+
+//get routes created by user
+
+router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
+  const userId = parseInt(req.params.userid,10)
+  const routes = await Route.findAll({
+    where: {
+      user_id : userId
+    },
+    include: [{model: User, attributes:["username"]}]
+      
+    
+  });
+  res.json({routes})
+}))
 
 module.exports = router

@@ -8,7 +8,8 @@ const areaReducer =(state,action)=>{
   switch(action.type){
     case "get_area":
       return action.payload
-
+    case "get_one_area":
+      return action.payload
     default:
       return state
   }
@@ -16,12 +17,22 @@ const areaReducer =(state,action)=>{
 };
 
 //Get all areas
-const getArea = (dispatch)=>{
+const getAreas = (dispatch)=>{
   return async ()=>{
     const res = await apiServer.get("/area");
     dispatch({type: "get_area", payload: res.data})
   }
 }
+
+//Get 1 area
+
+const getArea =(dispatch)=>{
+  return async (id)=>{
+    const res = await apiServer.get(`/area/${id}`);
+    dispatch({type: "get_1_area", payload: res.data})
+  }
+}
+
 
 //Add area
 const addArea =(dispatch) =>{
@@ -54,4 +65,4 @@ const editArea = (dispatch)=>{
   }
 }
 
-export const {Provider,Context} =  createDataContext(areaReducer, {getArea, addArea}, [])
+export const {Provider,Context} =  createDataContext(areaReducer, {getAreas, addArea, getArea, editArea}, [])

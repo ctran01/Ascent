@@ -1,7 +1,7 @@
 const express = require('express');
 const {requireAuth} = require('../middlewares/auth');
 const {asyncHandler} = require('../middlewares/utils');
-const {Area} = require('../db/models');
+const {Area, User} = require('../db/models');
 const router = express.Router();
 
 
@@ -56,7 +56,8 @@ router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
   const areas = await Area.findAll({
     where: {
       user_id : userId
-    }
+    },
+    include: [{model: User, attributes:["username"]}]
   });
   res.json({areas})
 }))

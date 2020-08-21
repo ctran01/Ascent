@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View ,StyleSheet, FlatList,TouchableOpacity} from 'react-native';
 import ItemListItem from './ItemListItem'
-const ItemList = ({items,navigation}) => {
+const RouteList = ({items,navigation}) => {
   return (
     <View >
       <FlatList
@@ -26,4 +26,4 @@ const ItemList = ({items,navigation}) => {
 
 
 const styles = StyleSheet.create({})
-export default ItemList;
+export default RouteList;

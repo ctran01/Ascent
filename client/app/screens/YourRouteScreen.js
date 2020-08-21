@@ -1,49 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import {View, Text, StyleSheet, SafeAreaView, AsyncStorage} from 'react-native';
+import {View, StyleSheet, SafeAreaView, AsyncStorage,ImageBackground} from 'react-native';
+import{ Text} from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import ItemList from '../components/ItemList';
 import Spacer from '../components/Spacer';
 import apiServer from '../api/apiServer'
+import AreaList from '../components/AreaList';
+import RouteList from '../components/RouteList';
 
 
 const YourRouteScreen = () => {
-
   const [areas, setAreas] = useState([])
   const [routes,setRoutes] = useState([])
   
 
   const getAreas = async()=>{
     const id = await AsyncStorage.getItem('userid')
-    const res = await apiServer.get(`/area/user/${id}`)
-    setAreas(res.data.areas)
+    
+    try{
+      const res = await apiServer.get(`/area/user/${id}`)
+      setAreas(res.data.areas)
+    }catch(err){
+      console.log(err)
+    }
   }
 
   const getRoutes = async()=>{
     const id = await AsyncStorage.getItem('userid')
-    const res = await apiServer.get(`/route/user/${id}`)
-    setRoutes(res.data.routes)
+    try{
+      const res = await apiServer.get(`/route/user/${id}`)
+      setRoutes(res.data.routes)
+
+    }catch(err){
+      console.log(err)
+    }
   }
+
   useEffect(()=>{
     getAreas();
-    getRoutes
+    getRoutes();
   },[])
 
   return (
-    <SafeAreaView>
-      <Text>Your Areas</Text>
-      <ScrollView>
-        <Text>{areas.length}</Text>
-      </ScrollView>
-      <Spacer/>
-      <Text>Your Routes</Text>
-      <ScrollView>
-        <ItemList></ItemList>
-      </ScrollView>
-    </SafeAreaView>
+    <ImageBackground style={{flex:1}}source={require('../images/blue-light.jpg')}>
+      <SafeAreaView>
+        <Text h4 style={{marginLeft:15, color: "white", marginTop:15,marginBottom:15, fontWeight:"bold"}}>Your Created Areas</Text>
+        <ScrollView>
+          <AreaList items={areas}></AreaList>
+        </ScrollView>
+        <Spacer/>
+        <Text h4 style={{marginLeft:15,marginBottom:15,color:"white", fontWeight:"bold"}}>Your Created Routes</Text>
+        <ScrollView>
+          <RouteList items={routes}></RouteList>
+        </ScrollView>
+      </SafeAreaView>
+      </ImageBackground>
 
   );
 }
 
 const styles = StyleSheet.create({}
   )
+
+YourRouteScreen.navigationOptions = () => {
+  return {
+    header: () => false,
+  };
+};
+
 export default YourRouteScreen;
