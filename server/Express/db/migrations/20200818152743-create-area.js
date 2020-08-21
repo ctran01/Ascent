@@ -18,6 +18,13 @@ module.exports = {
       image_url: {
         type: Sequelize.STRING(150)
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references:{
+          model: "Users"
+        }
+      },
       createdAt: {
         type: Sequelize.DATE
       },

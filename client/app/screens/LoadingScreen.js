@@ -1,15 +1,12 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useEffect, useContext} from 'react';
+import {Context as UserContext} from '../context/UserContext';
 
 const LoadingScreen = () => {
-  return (
-    <View>
-      <Text>LoadingScreen</Text>
-    </View>
-  );
+  const {tryLocalSignin} = useContext(UserContext)
+  useEffect(()=>{
+    tryLocalSignin()
+  }, [])
+  return null
 }
 
-const styles=StyleSheet.create({
-
-})
 export default LoadingScreen;

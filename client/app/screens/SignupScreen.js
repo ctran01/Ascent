@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {View, StyleSheet, ImageBackground, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import {Text, Input, Button} from 'react-native-elements'
 import {NavigationEvents} from 'react-navigation'
@@ -11,11 +11,13 @@ import ReferralContainer from '../components/ReferralContainer';
 
 
 const SignupScreen = ({navigation}) => {
-  const {state,signup, clearErrorMessage} = useContext(UserContext)
+  const {state,signup, clearErrorMessage, tryLocalSignin} = useContext(UserContext)
   const[username,setUsername] = useState('')
   const[email,setEmail] = useState('')
   const[password,setPassword] = useState('')
   
+  
+
   return (
     <ImageBackground style={styles.background} source={require("../images/background2.jpg")}>
     <SafeAreaView>

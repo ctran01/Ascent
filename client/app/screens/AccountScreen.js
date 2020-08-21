@@ -9,7 +9,7 @@ const AccountScreen = () => {
     return (
         <SafeAreaView>
             <Text>Your Account</Text>
-            <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Sign out"} onPress={()=>signout}></Button>
+            <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Sign out"} onPress={signout}></Button>
         </SafeAreaView>
     );
 }

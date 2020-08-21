@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import {View, StyleSheet, TouchableOpacity, Image, SafeAreaView, ImageBackground} from 'react-native'
 import {Text, Button } from 'react-native-elements'
 import { FontAwesome5 } from '@expo/vector-icons'; 
@@ -26,9 +26,11 @@ const HomeScreen = ({navigation}) => {
                 </View>
                 <Spacer/>
                 <View style={{flexDirection:"column", alignItems:"center"}}>
-                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Create Area"} onPress={()=>navigation.navigate('Search')}/>
-                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Create Route"} onPress={()=>navigation.navigate('Map')}/>
+                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Create Area"} onPress={()=>navigation.navigate('CreateArea')}/>
+                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Create Route"} onPress={()=>navigation.navigate('CreateRoute')}/>
+                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Your Routes"} onPress={()=>navigation.navigate('Followed')}/>
                     <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Followed Routes"} onPress={()=>navigation.navigate('Followed')}/>
+                    
                 </View>
                 <ReferralContainer />
             </SafeAreaView>
