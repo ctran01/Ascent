@@ -10,7 +10,7 @@ const SearchScreen = () => {
         <View>
             <SearchBar></SearchBar>
             <ScrollView>
-                <ResultsList></ResultsList>
+                {/* <ResultsList></ResultsList> */}
             </ScrollView>
         </View>    
     );

@@ -29,7 +29,7 @@ const SigninScreen = ({navigation}) => {
         onChangeText={setEmail}
         autoCapitalize="none"
         autoCorrect={false}
-        inputContainerStyle={{ borderColor: "black" }}
+        inputContainerStyle={{ borderColor: "black" , backgroundColor: "lightgrey",}}
         leftIcon={<MaterialIcons name="email" size={24} color="black" />} />
       <Spacer />
       <Input placeholder={"  Password"}

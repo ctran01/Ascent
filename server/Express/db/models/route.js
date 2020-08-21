@@ -17,7 +17,14 @@ module.exports = (sequelize, DataTypes) => {
     image_url: DataTypes.STRING,
     latitude: DataTypes.NUMERIC,
     longitude: DataTypes.NUMERIC,
-    area_id: DataTypes.INTEGER
+    area_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {});
   Route.associate = function(models) {
     // associations can be defined here
@@ -27,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       through: {
           model: 'Follower',
           scope: {
-              followableType: 'route'
+              followable_type: 'route'
           }
       },
       foreignKey: 'followable_id',
@@ -36,6 +43,9 @@ module.exports = (sequelize, DataTypes) => {
 
     Route.belongsTo(models.Area, {
       foreignKey: 'area_id'
+    })
+    Route.belongsTo(models.User, {
+      foreignKey: 'user_id'
     })
   };
   return Route;

@@ -6,7 +6,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     description: DataTypes.TEXT,
-    image_url: DataTypes.STRING
+    image_url: DataTypes.STRING,
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {});
   Area.associate = function(models) {
     // associations can be defined here
@@ -16,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       through: {
         model: 'Follower',
         scope:{
-          followableType: 'area'
+          followable_type: 'area'
         }
       },
       foreignKey: 'followable_id',
@@ -25,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
 
     Area.hasMany(models.Route,{
       foreignKey: 'area_id'
+    })
+
+    Area.belongsTo(models.User, {
+      foreignKey: 'user_id'
     })
   };
   return Area;

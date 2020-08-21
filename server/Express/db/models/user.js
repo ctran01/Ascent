@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       through: {
           model: 'Follower',
           scope: {
-              followableType: 'user'
+              followable_type: 'user'
           }
 
       },
@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
       through: {
           model: 'Follower',
           scope: {
-              followableType: 'user'
+              followable_type: 'user'
           }
 
       },
@@ -73,6 +73,14 @@ module.exports = (sequelize, DataTypes) => {
 
     User.hasMany(models.Follower,{
       foreignKey: "user_id"
+    })
+
+    User.hasMany(models.Route,{
+      foreignKey: 'user_id'
+    })
+
+    User.hasMany(models.Area,{
+      foreignKey: 'user_id'
     })
 
   };
