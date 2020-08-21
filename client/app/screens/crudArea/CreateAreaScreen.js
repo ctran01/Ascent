@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View,Text, StyleSheet, Image } from 'react-native';
 import AreaForm from '../../components/AreaForm'
-const CreateAreaScreen = () => {
+import {Context as AreaContext} from '../../context/AreaContext'
+const CreateAreaScreen = ({navigation}) => {
+  const {addArea} = useContext(AreaContext);
+
   return (
     <View>
-      <AreaForm></AreaForm>
+      <AreaForm submitButtonText={"Add Area"} 
+      onSubmit={(name,description)=>{
+        addArea(name,description, ()=> navigation.navigate('Home'), ()=>{alert("Area saved!")})}}>
+      </AreaForm>
     </View>
   );
 }

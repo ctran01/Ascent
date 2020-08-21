@@ -2,6 +2,8 @@ import React,{useContext} from "react";
 import {View, StyleSheet, TouchableOpacity, Image, SafeAreaView, ImageBackground} from 'react-native'
 import {Text, Button } from 'react-native-elements'
 import { FontAwesome5 } from '@expo/vector-icons'; 
+import { Foundation } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Spacer from '../components/Spacer';
 import ReferralContainer from '../components/ReferralContainer'
 
@@ -10,7 +12,7 @@ const HomeScreen = ({navigation}) => {
         <ImageBackground style={{flex:1}}source={require('../images/blue-light.jpg')}>
             <SafeAreaView >
                 <Image style={styles.image} source={require('../images/logo3.png')}></Image>
-                <View style={{ flexDirection:"row", justifyContent:"space-around"}}>
+                <View style={styles.container}>
                     <TouchableOpacity onPress={()=> navigation.navigate('Search')}>
                         <ImageBackground style={styles.imageButton} imageStyle={{borderRadius: 15}}source={require('../images/search.jpg')}>
                             <FontAwesome5 name="search" size={24} color="black" />
@@ -25,13 +27,21 @@ const HomeScreen = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <Spacer/>
-                <View style={{flexDirection:"column", alignItems:"center"}}>
-                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Create Area"} onPress={()=>navigation.navigate('CreateArea')}/>
-                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Create Route"} onPress={()=>navigation.navigate('CreateRoute')}/>
-                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Your Routes"} onPress={()=>navigation.navigate('Followed')}/>
-                    <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Followed Routes"} onPress={()=>navigation.navigate('Followed')}/>
-                    
+                <View style={styles.container}>
+                    <View style={{flexDirection:"column", alignItems:"center"}}>
+                        {/* <TouchableOpacity>
+                            <Text>Create Route</Text>
+                        </TouchableOpacity> */}
+                        <Button icon={<Foundation name="mountains" size={24} color="white" />} buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Create Area"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('CreateArea')}/>
+                        <Button icon={<FontAwesome5 name="tree" size={24} color="white" />}buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Create Route"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('CreateRoute')}/>
+                    </View>
+                
+                    <View style={{flexDirection:"column", alignItems:"center"}}>
+                        <Button icon={<FontAwesome5 name="route" size={24} color="white" />} buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Your Routes"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('Followed')}/>
+                        <Button icon={<MaterialCommunityIcons name="campfire" size={24} color="white" />}buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Followed Routes"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('Followed')}/>
+                    </View>
                 </View>
+                
                 <ReferralContainer />
             </SafeAreaView>
         </ImageBackground>
@@ -44,6 +54,10 @@ const styles = StyleSheet.create({
         width: 400,
         marginLeft: 20,
         
+    },
+    container:{
+        flexDirection:"row", 
+        justifyContent:"space-around"
     },
     imageButton:{
         height: 300, 
@@ -58,9 +72,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     button:{
-        width: 300,
+        
+        backgroundColor:"#1359c4",
+        height:50,
+        
+        borderWidth:1,
         borderRadius:15,
-        paddingBottom: 15
+        width: 190
+        
     }
 
 })
