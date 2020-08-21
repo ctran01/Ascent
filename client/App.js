@@ -19,7 +19,8 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import {Provider as UserProvider} from './app/context/UserContext'
 import {setNavigator} from './app/setNavigator'
 import {Provider as AreaProvider} from './app/context/AreaContext'
-
+import YourRouteScreen from './app/screens/YourRouteScreen'
+import {Provider as RouteProvider} from './app/context/RouteContext'
 
 
 
@@ -42,6 +43,7 @@ const navigator = createSwitchNavigator(
         EditRoute: EditRouteScreen,
         AreaDetail: AreaDetailScreen,
         RouteDetail: RouteDetailScreen,
+        YourRoute: YourRouteScreen
       }),
       Account: AccountScreen
     },{
@@ -64,9 +66,11 @@ export default () => {
 
   return(
   <AreaProvider>
-    <UserProvider>
-      <App ref={(navigator)=> {setNavigator(navigator)}}/>
-    </UserProvider>
+    <RouteProvider>
+      <UserProvider>
+        <App ref={(navigator)=> {setNavigator(navigator)}}/>
+      </UserProvider>
+    </RouteProvider>
   </AreaProvider>
   )
 }

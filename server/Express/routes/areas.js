@@ -35,6 +35,7 @@ router.post('/', asyncHandler(async(req,res,next)=>{
 
 }))
 
+//get specific area
 router.get('/:id', asyncHandler(async(req,res,next)=>{
   const areaId = parseInt(req.params.id,10);
   const area = await Area.findByPk(areaId);
@@ -47,6 +48,19 @@ router.get('/:id', asyncHandler(async(req,res,next)=>{
 
   
 }))
+
+//get areas created by user
+
+router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
+  const userId = parseInt(req.params.userid,10)
+  const areas = await Area.findAll({
+    where: {
+      user_id : userId
+    }
+  });
+  res.json({areas})
+}))
+
 
 
 module.exports = router

@@ -28,4 +28,16 @@ router.get('/:id', asyncHandler(async(req,res,next)=>{
 
 }))
 
+router.post('/', asyncHandler(async(req,res,next)=>{
+  const { name, description, grade,type,latitude,longitude,user_id,area_id} = req.body
+  try{
+    const area = await Route.create({name,description,grade,type,latitude,longitude,user_id, area_id})
+    res.status(201).json({Route})
+  }catch(err){
+    res.status(422).send(err.message)
+  }
+
+}))
+
+
 module.exports = router
