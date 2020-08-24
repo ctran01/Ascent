@@ -2,6 +2,7 @@ import React,{useContext} from "react";
 import {View, Text, StyleSheet,SafeAreaView} from 'react-native'
 import {Button} from 'react-native-elements'
 import {Context as UserContext} from '../context/UserContext'
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 const AccountScreen = () => {
     const {signout} = useContext(UserContext)
@@ -22,4 +23,11 @@ const styles = StyleSheet.create({
         paddingBottom: 15
     }
 })
+
+AccountScreen.navigationOptions =()=>{
+    return{
+        title: 'Account',
+        tabBarIcon: <MaterialIcons name="person" size={24} color="white" />
+    }
+}
 export default AccountScreen;

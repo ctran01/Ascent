@@ -14,7 +14,7 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
 
   return(
       <SafeAreaView>
-        <Text h3>Add a route</Text>
+        {/* <Text h3>Add a route</Text> */}
         <Input 
         label="Name"        
         placeholderTextColor="black"
@@ -37,8 +37,8 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
         />
         <Text style={{fontSize:16, color: "#86939e", fontWeight:"bold", marginLeft:10,marginBottom:10}}>Type</Text>
         <DropDownPicker items={[
-          {label: 'Sport', value: 'sport'},
-          {label: 'Boulder', value: 'boulder'}
+          {label: 'Sport', value: 'Sport'},
+          {label: 'Boulder', value: 'Boulder'}
         ]}
         defaultNull
         containerStyle={{height:40, width: 120, marginLeft:10,marginBottom:10}}
@@ -54,7 +54,7 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
             value={latitude}
             onChangeText={setLatitude}
             autoCorrect={false}
-            inputContainerStyle={{borderWidth: 1,borderColor:"white", width:75}}
+            inputContainerStyle={{borderWidth: 1,borderColor:"white", width:100}}
             inputStyle={styles.input}
             labelStyle={styles.label}
             />
@@ -66,8 +66,8 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
             value={longitude}
             onChangeText={setLongitude}
             autoCorrect={false}
-            inputContainerStyle={{borderWidth: 1,borderColor:"white", width:75}}
-            inputStyle={styles.input}
+            inputContainerStyle={{borderWidth: 1,borderColor:"white", width:100}}
+            inputStyle={{color:"white"}}
             labelStyle={styles.label} 
             />
           </View>
@@ -87,7 +87,7 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
         />
 
         {/* Add Area later */}
-        <Button style={{marginTop:100, width: 200, left:100,}} buttonStyle={{ backgroundColor:"#1359c4"}} title={submitButtonText} onPress={()=> {onSubmit(name,description,grade,type,latitude,longitude)}}/>
+        <Button style={{marginTop:100, width: 200, left:100,}} buttonStyle={{ backgroundColor:"#1359c4"}} title={submitButtonText} onPress={()=> {onSubmit(name,grade,type,latitude,longitude,description)}}/>
 
       </SafeAreaView>
     )

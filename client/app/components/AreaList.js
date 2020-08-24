@@ -1,7 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Text, View ,StyleSheet, FlatList,TouchableOpacity} from 'react-native';
 import ItemListItem from './ItemListItem'
+import {withNavigation} from 'react-navigation';
+
+
+
+
 const AreaList = ({items,navigation}) => {
+  
   return (
     <View >
       <FlatList
@@ -11,9 +17,9 @@ const AreaList = ({items,navigation}) => {
         keyExtractor={(item)=>item.id.toString()}
         renderItem={({item})=>{
           return(
-            <TouchableOpacity onPress={()=>navigation.navigate('AreaDetail', {id:item.id})}>
+            <TouchableOpacity onPress={()=>navigation.navigate('AreaDetail', {id:item.id,title:item.name})}>
               <ItemListItem item={item}/>
-             </TouchableOpacity>
+            </TouchableOpacity>
           )
         }}
         />
@@ -25,4 +31,4 @@ const AreaList = ({items,navigation}) => {
 
 
 const styles = StyleSheet.create({})
-export default AreaList;
+export default withNavigation(AreaList);

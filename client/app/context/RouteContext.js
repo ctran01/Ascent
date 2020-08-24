@@ -4,7 +4,12 @@ import apiServer from '../api/apiServer'
 import { AsyncStorage } from 'react-native';
   const routeReducer = (state,action) =>{
     switch(action.type){
-
+      case "get_routes":
+        return action.payload
+      case "get_route":
+        return action.payload
+      case "get_user_routes":
+        return action.payload
       default:
         return state
     }
@@ -33,18 +38,60 @@ import { AsyncStorage } from 'react-native';
     }
   }
 
-  const deleteRoute = (dispatch)=>{
-    return async()=>{
 
+  //Get all areas
+const getRoutes = (dispatch)=>{
+  return async ()=>{
+    
+    const res = await apiServer.get("/route");
+    dispatch({type: "get_routes", payload: res.data})
+  }
+}
+
+//Get 1 area
+
+const getRoute =(dispatch)=>{
+  return async (id)=>{
+    const res = await apiServer.get(`/route/${id}`);
+    dispatch({type: "get_route", payload: res.data})
+  }
+}
+
+//get routes created by user
+const getUserRoutes = (dispatch)=>{
+  return async (id) =>{
+    const userid = await AsyncStorage.getItem('userid')
+    const res = await apiServer.get(`/route/user/${userid}`)
+    dispatch({type: "get_user_routes", payload: res.data.routes})
+  }
+}
+
+  const deleteRoute = (dispatch)=>{
+    return async(id,navigateAway,alertMessage)=>{
+      const res = await apiServer.delete(`/route/${id}`)
+      if(navigateAway){
+        navigateAway();
+      }
+      if(alertMessage){
+        alertMessage();
+      }
     }
   }
 
   const editRoute = (dispatch)=>{
-    return async()=>{
+    return async(id,name,grade, type, latitude,longitude, description,navigateAway,alertMessage)=>{
 
+      const res = await apiServer.put(`/route/${id}`, {name,grade, type, latitude, longitude,description})
+      dispatch({type: "edit_route", payload: {id,name,grade,type,latitude,longitude,description}})
+      if(navigateAway){
+        navigateAway();
+      }
+      if(alertMessage){
+        alertMessage();
+      }
     }
   }
  
 
 
-export const {Context,Provider} = createDataContext(routeReducer, {addRoute,deleteRoute,editRoute}, [])
+export const {Context,Provider} = createDataContext(routeReducer, {addRoute,deleteRoute,editRoute,getRoute,getRoutes,getUserRoutes}, [])

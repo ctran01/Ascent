@@ -12,7 +12,7 @@ const AreaForm = ({initialValues,onSubmit,submitButtonText}) =>{
   
   return(
       <SafeAreaView>
-        <Text h3>Add an area</Text>
+        {/* <Text h3>Add an area</Text> */}
         <Input 
           label="Name of Area"
           
@@ -34,12 +34,14 @@ const AreaForm = ({initialValues,onSubmit,submitButtonText}) =>{
           autoCorrect={false}
           inputContainerStyle={{ borderBottomWidth:0, borderColor: "black" }}
           labelStyle={styles.label}
+          inputStyle={styles.input}
           multiline={true}
+          numberOfLines={10}
           onSubmitEditing={()=>Keyboard.dismiss()}
         />
         </View>
         
-        <Button style={{marginTop:100}} title={submitButtonText} buttonStyle={{ backgroundColor:"#1359c4"}} onPress={()=> {onSubmit(name,description)}}/>
+        <Button style={{marginTop:100,width: 200, left:100}} title={submitButtonText} buttonStyle={{ backgroundColor:"#1359c4"}} onPress={()=> {onSubmit(name,description)}}/>
       </SafeAreaView>
     )
 

@@ -2,6 +2,7 @@ import React,{useContext} from 'react';
 import {Text, View, StyleSheet, ScrollView, ImageBackground} from 'react-native'
 import RouteForm from '../../components/RouteForm'
 import {Context as RouteContext} from '../../context/RouteContext';
+import Spacer from '../../components/Spacer';
 
 const CreateRouteScreen = ({navigation}) => {
 
@@ -10,14 +11,26 @@ const CreateRouteScreen = ({navigation}) => {
 
   return (
     <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
+      <Spacer/>
       <View>
         <RouteForm 
           submitButtonText={"Add Route"}
-          onSubmit={(name,description,grade,type,latitude,longitude)=>addRoute(name,description,grade,type,latitude,longitude, ()=>navigation.navigate('Home'), ()=>alert("Route Saved!"))}
+          onSubmit={
+            (name,description,grade,type,latitude,longitude)=>{
+              addRoute(name,description,grade,type,latitude,longitude, ()=>navigation.navigate('Home'), ()=>alert("Route Saved!"))}}
           ></RouteForm>
       </View>
     </ImageBackground>
   );
 }
 
+CreateRouteScreen.navigationOptions = ({navigation}) => {
+  
+  return {
+    title: "Add a route" ,
+    headerTitleStyle: {color: 'white'},
+    headerBackTitleVisible: false,
+    headerStyle: {backgroundColor: 'black', }
+  };
+};
 export default CreateRouteScreen;

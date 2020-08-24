@@ -1,7 +1,7 @@
 const express = require('express');
 const {requireAuth} = require('../middlewares/auth');
 const {asyncHandler} = require('../middlewares/utils');
-const {Route, User} = require('../db/models');
+const {Area, User,Route,Follower} = require('../db/models');
 
 
 const router = express.Router();
@@ -16,9 +16,23 @@ const routeNotFound = (id)=>{
   return err
 }
 
+
+//GET all Routes
+router.get('/', asyncHandler(async(req,res,next)=>{
+  const route = await Route.findAll()
+  
+  res.json({route})
+}))
+
+
+//get specific route
 router.get('/:id', asyncHandler(async(req,res,next)=>{
   const routeId = parseInt(req.params.id,10)
-  const route = await Route.findByPk(routeId);
+  const route = await Route.findByPk(routeId,{
+    include: [{model: User, attributes: ["username"]}]
+  
+    }
+      );
 
   if(route){
     res.json({ route });
@@ -28,6 +42,18 @@ router.get('/:id', asyncHandler(async(req,res,next)=>{
 
 }))
 
+//get routes created by user
+
+router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
+  const userId = parseInt(req.params.userid,10)
+  const routes = await Route.findAll({
+    where: {
+      user_id : userId
+    },
+    include: [{model: User, attributes:["username"]}]
+  });
+  res.json({routes})
+}))
 
 //Add Route
 router.post('/', asyncHandler(async(req,res,next)=>{
@@ -55,6 +81,32 @@ router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
     
   });
   res.json({routes})
+}))
+
+//Edit Route
+router.put('/:id', asyncHandler(async(req,res,next)=>{
+  const routeid = parseInt(req.params.id,10)
+  const {name,grade, type, latitude, longitude,description} = req.body
+  const route = await Route.update({name:name,grade:grade, type:type, latitude:latitude, longitude:longitude,description:description},{
+    where: {
+      id : routeid
+    },
+    include:[{model: User, attributes:["username"]}]
+  })
+  res.json({route})
+  // console.log(req.body)
+ 
+}))
+
+//Delete route
+router.delete('/:id', asyncHandler(async(req,res,next)=>{
+  const routeid = parseInt(req.params.id,10)
+  const route = await Route.destroy({
+    where: {
+      id: routeid
+    }
+  })
+  res.json({"message": "route deleted"})
 }))
 
 module.exports = router

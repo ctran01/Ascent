@@ -22,35 +22,42 @@ import {setNavigator} from './app/setNavigator'
 import {Provider as AreaProvider} from './app/context/AreaContext'
 import YourRouteScreen from './app/screens/YourRouteScreen'
 import {Provider as RouteProvider} from './app/context/RouteContext'
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 
+const homeFlow = createStackNavigator({
+  Home: HomeScreen,
+  Search: SearchScreen,
+  Map: MapScreen,
+  Followed: FollowedScreen,
+  CreateArea: CreateAreaScreen,
+  EditArea: EditAreaScreen,
+  CreateRoute: CreateRouteScreen,
+  EditRoute: EditRouteScreen,
+  AreaDetail: AreaDetailScreen,
+  RouteDetail: RouteDetailScreen,
+  YourRoute: YourRouteScreen
+})
+
+homeFlow.navigationOptions ={
+  title: 'Home',
+  tabBarIcon: <FontAwesome5 name="home" size={24} color="white" />
+}
 
 
 const navigator = createSwitchNavigator(
   {
-    loginFlow: createStackNavigator({
-      Signin: SigninScreen,
-      Signup: SignupScreen
-    }),
+    // loginFlow: createStackNavigator({
+    //   Signin: SigninScreen,
+    //   Signup: SignupScreen
+    // }),
     mainFlow: createBottomTabNavigator({
-      homeFlow: createStackNavigator({
-        Home: HomeScreen,
-        Search: SearchScreen,
-        Map: MapScreen,
-        Followed: FollowedScreen,
-        CreateArea: CreateAreaScreen,
-        EditArea: EditAreaScreen,
-        CreateRoute: CreateRouteScreen,
-        EditRoute: EditRouteScreen,
-        AreaDetail: AreaDetailScreen,
-        RouteDetail: RouteDetailScreen,
-        YourRoute: YourRouteScreen
-      }),
+      homeFlow: homeFlow,
       Account: AccountScreen
     },{
       tabBarOptions:{
         style:{
-          backgroundColor: 'rgba(0, 0, 0, 0)',
+          backgroundColor: 'rgba(0, 0, 0, .7)',
           position: 'absolute',
           bottom: 0,
           left: 0,
