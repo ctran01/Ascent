@@ -16,7 +16,7 @@ import { AsyncStorage } from 'react-native';
   }
   
   const addRoute = (dispatch)=>{
-    return async(name,description,grade,type,latitude,longitude,navigateAway,alertMessage)=>{
+    return async(name,grade,type,latitude,longitude,description,navigateAway,alertMessage)=>{
       const userid = await AsyncStorage.getItem('userid')
       const res = await apiServer.post("/route",{
         name: name,

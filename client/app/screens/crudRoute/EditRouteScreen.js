@@ -23,4 +23,13 @@ const EditRouteScreen = ({navigation}) => {
   );
 }
 
+EditRouteScreen.navigationOptions = ({navigation}) => {
+  const title = navigation.getParam('title')
+  return {
+    title: "Edit Route" ,
+    headerTitleStyle: {color: 'white'},
+    headerBackTitleVisible: false,
+    headerStyle: {backgroundColor: 'black'}
+  };
+};
 export default EditRouteScreen;

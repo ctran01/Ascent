@@ -46,5 +46,14 @@ const EditAreaScreen = ({navigation}) => {
     </ImageBackground>
   );
 }
+EditAreaScreen.navigationOptions = ({navigation}) => {
+  const title = navigation.getParam('title')
+  return {
+    title: "Edit Area" ,
+    headerTitleStyle: {color: 'white'},
+    headerBackTitleVisible: false,
+    headerStyle: {backgroundColor: 'black'}
+  };
+};
 
 export default EditAreaScreen;

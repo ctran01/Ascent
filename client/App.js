@@ -47,10 +47,6 @@ homeFlow.navigationOptions ={
 
 const navigator = createSwitchNavigator(
   {
-    // loginFlow: createStackNavigator({
-    //   Signin: SigninScreen,
-    //   Signup: SignupScreen
-    // }),
     mainFlow: createBottomTabNavigator({
       homeFlow: homeFlow,
       Account: AccountScreen

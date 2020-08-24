@@ -8,7 +8,7 @@ const AccountScreen = () => {
     const {signout} = useContext(UserContext)
     //TODO add picture/ add image_url attribute on backend
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
             
             <Text>Your Account</Text>
             <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Sign out"} onPress={signout}></Button>

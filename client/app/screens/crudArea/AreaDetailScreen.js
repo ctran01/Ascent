@@ -38,7 +38,7 @@ const AreaDetailPage = ({navigation}) => {
 
     useEffect(()=>{
         // getArea(id)
-        // getRoutes(id)
+        getRoutes(id)
     },[]);
 
     // if(!area){
