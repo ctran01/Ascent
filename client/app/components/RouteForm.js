@@ -1,9 +1,9 @@
 import React,{useState} from 'react';
-import {View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpactity} from 'react-native'
+import {View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpactity,Keyboard} from 'react-native'
 import {Input, Button, Text} from 'react-native-elements'
-import { MaterialIcons } from '@expo/vector-icons'; 
+import DropDownPicker from 'react-native-dropdown-picker';
 
-const RouteForm = (initialValues) =>{
+const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
   const [name, setName] = useState(initialValues.name)
   const [description, setDescription] = useState(initialValues.description)
   const [grade,setGrade] =useState(initialValues.grade)
@@ -14,15 +14,16 @@ const RouteForm = (initialValues) =>{
 
   return(
       <SafeAreaView>
-        <Text h3>Add a route</Text>
+        {/* <Text h3>Add a route</Text> */}
         <Input 
-        label="Name"
-        
+        label="Name"        
         placeholderTextColor="black"
         value={name}
         onChangeText={setName}
         autoCorrect={false}
-        inputContainerStyle={{ borderColor: "black" }}
+        inputContainerStyle={styles.inputContainter}
+        inputStyle={styles.input}
+        labelStyle={styles.label}
         />
         <Input 
         label="Grade"
@@ -30,52 +31,83 @@ const RouteForm = (initialValues) =>{
         value={grade}
         onChangeText={setGrade}
         autoCorrect={false}
-        inputContainerStyle={{ borderColor: "black" }} 
+        inputContainerStyle={styles.inputContainter}
+        inputStyle={styles.input}
+        labelStyle={styles.label}
         />
-        <Input 
-        label="Type"
-        
-        placeholderTextColor="black"
-        value={type}
-        onChangeText={setType}
-        autoCorrect={false}
-        inputContainerStyle={{ borderColor: "black" }}
-         />
-        <Input 
-        label="Latitude"
-        
-        placeholderTextColor="black"
-        value={latitude}
-        onChangeText={setLatitude}
-        autoCorrect={false}
-        inputContainerStyle={{ borderColor: "black" }}
-         />
-        <Input 
-        label="Longitude"
-        
-        placeholderTextColor="black"
-        value={longitude}
-        onChangeText={setLongitude}
-        autoCorrect={false}
-        inputContainerStyle={{ borderColor: "black" }} 
+        <Text style={{fontSize:16, color: "#86939e", fontWeight:"bold", marginLeft:10,marginBottom:10}}>Type</Text>
+        <DropDownPicker items={[
+          {label: 'Sport', value: 'Sport'},
+          {label: 'Boulder', value: 'Boulder'}
+        ]}
+        defaultNull
+        containerStyle={{height:40, width: 120, marginLeft:10,marginBottom:10}}
+        placeholder="Select type"
+        onChangeItem={(item)=>{setType(item.value)}}
         />
+        <View style={{flexDirection:"row"}}>
+          <View>
+
+            <Input 
+            label="Latitude"        
+            placeholderTextColor="black"
+            value={latitude}
+            onChangeText={setLatitude}
+            autoCorrect={false}
+            inputContainerStyle={{borderWidth: 1,borderColor:"white", width:100}}
+            inputStyle={styles.input}
+            labelStyle={styles.label}
+            />
+          </View>
+          <View style={{marginLeft:20}}>
+            <Input 
+            label="Longitude"        
+            placeholderTextColor="black"
+            value={longitude}
+            onChangeText={setLongitude}
+            autoCorrect={false}
+            inputContainerStyle={{borderWidth: 1,borderColor:"white", width:100}}
+            inputStyle={{color:"white"}}
+            labelStyle={styles.label} 
+            />
+          </View>
+        </View>
         <Input 
         label="Description"
         placeholder={"Enter Description Here"}
-        placeholderTextColor="black"
+        placeholderTextColor="white"
         value={description}
         onChangeText={setDescription}
         autoCorrect={false}
         inputContainerStyle={{ borderBottomWidth:0, borderColor: "black" }}
+        inputStyle={styles.input}
+        labelStyle={styles.label} 
         multiline={true}
-        numberOfLines={10} />
-        
+        onSubmitEditing={()=>Keyboard.dismiss()}
+        />
+
+        {/* Add Area later */}
+        <Button style={{marginTop:100, width: 200, left:100,}} buttonStyle={{ backgroundColor:"#1359c4"}} title={submitButtonText} onPress={()=> {onSubmit(name,grade,type,latitude,longitude,description)}}/>
 
       </SafeAreaView>
     )
 
 
 }
+
+const styles=StyleSheet.create({
+  inputContainter:{
+     borderWidth: 1 ,
+      borderColor:"white"
+  },
+  input:{
+    color:"white"
+  },
+  label:{
+    color:"white",
+    paddingBottom:5
+  }
+})
 
 RouteForm.defaultProps={
   initialValues:{

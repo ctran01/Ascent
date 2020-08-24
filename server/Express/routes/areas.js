@@ -1,7 +1,7 @@
 const express = require('express');
 const {requireAuth} = require('../middlewares/auth');
 const {asyncHandler} = require('../middlewares/utils');
-const {Area} = require('../db/models');
+const {Area, User,Route,Follower} = require('../db/models');
 const router = express.Router();
 
 
@@ -35,9 +35,12 @@ router.post('/', asyncHandler(async(req,res,next)=>{
 
 }))
 
+//get specific area
 router.get('/:id', asyncHandler(async(req,res,next)=>{
   const areaId = parseInt(req.params.id,10);
-  const area = await Area.findByPk(areaId);
+  const area = await Area.findByPk(areaId,{
+    include: [{model: Route},{model: User, attributes:["username"]}]
+  });
 
   if(area){
     res.json({area});
@@ -48,5 +51,58 @@ router.get('/:id', asyncHandler(async(req,res,next)=>{
   
 }))
 
+//get areas created by user
+
+router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
+  const userId = parseInt(req.params.userid,10)
+  const areas = await Area.findAll({
+    where: {
+      user_id : userId
+    },
+    include: [{model: User, attributes:["username"]}]
+  });
+  res.json({areas})
+}))
+
+
+//get all routes for an area
+
+router.get('/route/:id', asyncHandler(async(req,res,next)=>{
+  const areaId = parseInt(req.params.id,10)
+  const routes = await Route.findAll({
+    where:{
+      area_id: areaId
+    },
+    include: [{model: User, attributes:["username"]}]
+  })
+  res.json({routes})
+}))
+
+
+//edit area
+
+router.put('/:id', asyncHandler(async(req,res,next)=>{
+  const areaId = parseInt(req.params.id,10)
+  const {name, description} = req.body
+  const area = await Area.update({name: name, description: description},{
+    where: {
+      id : areaId
+    },
+    include:[{model: User, attributes:["username"]}]
+  })
+  res.json({area})
+ 
+}))
+
+//Delete Area
+router.delete('/:id', asyncHandler(async(req,res,next)=>{
+  const areaId = parseInt(req.params.id,10)
+  const area = await Area.destroy({
+    where: {
+      id: areaId
+    }
+  })
+  res.json({"message": "area deleted"})
+}))
 
 module.exports = router

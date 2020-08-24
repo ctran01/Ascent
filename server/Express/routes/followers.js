@@ -1,6 +1,7 @@
 const express = require('express');
 const {requireAuth} = require('../middlewares/auth');
 const {asyncHandler} = require('../middlewares/utils');
+const {Area, User,Route,Follower} = require('../db/models');
 
 const router = express.Router();
 //router.use(requireAuth)

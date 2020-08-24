@@ -5,12 +5,14 @@ import SearchBar from '../components/SearchBar';
 
 const SearchScreen = () => {
     const [searchTerm,  setSearchTerm] = useState('')
-
+    const [areas, setAreas] = useState([])
+    const [routes,setRoutes] = useState([])
     return (
         <View>
             <SearchBar></SearchBar>
             <ScrollView>
                 {/* <ResultsList></ResultsList> */}
+                
             </ScrollView>
         </View>    
     );

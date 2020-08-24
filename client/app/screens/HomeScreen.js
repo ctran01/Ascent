@@ -37,11 +37,11 @@ const HomeScreen = ({navigation}) => {
                     </View>
                 
                     <View style={{flexDirection:"column", alignItems:"center"}}>
-                        <Button icon={<FontAwesome5 name="route" size={24} color="white" />} buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Your Routes"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('Followed')}/>
+                        <Button icon={<FontAwesome5 name="route" size={24} color="white" />} buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Your Routes"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('YourRoute')}/>
                         <Button icon={<MaterialCommunityIcons name="campfire" size={24} color="white" />}buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Followed Routes"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('Followed')}/>
                     </View>
                 </View>
-                
+                <Spacer/>
                 <ReferralContainer />
             </SafeAreaView>
         </ImageBackground>

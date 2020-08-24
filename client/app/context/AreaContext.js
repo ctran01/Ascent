@@ -6,9 +6,18 @@ import { AsyncStorage } from 'react-native';
 
 const areaReducer =(state,action)=>{
   switch(action.type){
+    case "get_areas":
+      return action.payload
     case "get_area":
       return action.payload
+    
+    case "get_user_areas":
+      return action.payload
 
+    // case "edit_area":
+    //   return state.map((area)=>{
+    //     return area.id === action.payload.id ? action.payload : area;
+    //   })
     default:
       return state
   }
@@ -16,10 +25,29 @@ const areaReducer =(state,action)=>{
 };
 
 //Get all areas
-const getArea = (dispatch)=>{
+const getAreas = (dispatch)=>{
   return async ()=>{
+    
     const res = await apiServer.get("/area");
+    dispatch({type: "get_areas", payload: res.data})
+  }
+}
+
+//Get 1 area
+
+const getArea =(dispatch)=>{
+  return async (id)=>{
+    const res = await apiServer.get(`/area/${id}`);
     dispatch({type: "get_area", payload: res.data})
+  }
+}
+
+//get areas created by user
+const getUserAreas = (dispatch)=>{
+  return async (id) =>{
+    const userid = await AsyncStorage.getItem('userid')
+    const res = await apiServer.get(`/area/user/${userid}`)
+    dispatch({type: "get_user_areas", payload: res.data.areas})
   }
 }
 
@@ -44,14 +72,29 @@ const addArea =(dispatch) =>{
 //Edit Area
 
 const editArea = (dispatch)=>{
-  return async(name,description,callback1,callback2)=>{
-    const userid = await AsyncStorage.getItem('userid')
-    const res = await apiServer.put(`/area/${id}`)
+  return async(id,name,description,navigateAway,alertMessage)=>{
+
+    const res = await apiServer.put(`/area/${id}`, {name,description})
     dispatch({type: "edit_area", payload: {id,name,description}})
-    if(callback1){
-      callback1();
+    if(navigateAway){
+      navigateAway();
+    }
+    if(alertMessage){
+      alertMessage();
     }
   }
 }
 
-export const {Provider,Context} =  createDataContext(areaReducer, {getArea, addArea}, [])
+const delArea = (dispatch) =>{
+  return async(id,navigateAway,alertMessage)=>{
+    const res = await apiServer.delete(`/area/${id}`)
+    if(navigateAway){
+      navigateAway();
+    }
+    if(alertMessage){
+      alertMessage();
+    }
+  }
+}
+
+export const {Provider,Context} =  createDataContext(areaReducer, {getAreas, addArea, getArea, editArea, delArea, getUserAreas}, [])
