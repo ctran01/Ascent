@@ -11,7 +11,7 @@ const AccountScreen = () => {
         <SafeAreaView style={{flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
             
             <Text>Your Account</Text>
-            <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Sign out"} onPress={signout}></Button>
+            <Button buttonStyle={{backgroundColor:"#1359c4"}} style={styles.button} title={"Click to sign out"} onPress={signout}></Button>
         </SafeAreaView>
     );
 }
