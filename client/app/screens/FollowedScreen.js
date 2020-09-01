@@ -1,6 +1,6 @@
 import React,{useContext, useEffect} from "react";
-import {View, Text, StyleSheet, ScrollView, ImageBackground} from 'react-native'
-import {Button} from 'react-native-elements';
+import {View, StyleSheet, ScrollView, ImageBackground} from 'react-native'
+import {Text} from 'react-native-elements';
 import {Context as AreaContext} from '../context/AreaContext'
 import {Context as RouteContext} from '../context/RouteContext'
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,8 +18,10 @@ const FollowedScreen = ({navigation}) => {
 
     useEffect(()=>{
         getFollowedAreas()
+        getFollowedRoutes()
         const listener = navigation.addListener("didFocus", () => {
             getFollowedAreas()
+            getFollowedRoutes()
         })
         return () => {
             listener.remove();
@@ -38,7 +40,7 @@ const FollowedScreen = ({navigation}) => {
                 <Spacer/>
             <Text h4 style={{marginLeft:15,marginBottom:15,color:"white", fontWeight:"bold"}}>Followed Routes</Text>    
                 <ScrollView>
-                    {/* <RouteList items={routeState}></RouteList> */}
+                    <RouteList items={routeState}></RouteList>
                 </ScrollView>
            </SafeAreaView>
         </ImageBackground>
@@ -46,11 +48,13 @@ const FollowedScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    button:{
-        width: 300,
-        borderRadius:15,
-        paddingBottom: 15,
-        
-    }
+
 })
+
+FollowedScreen.navigationOptions = () => {
+    return {
+      header: () => false,
+    };
+  };
+
 export default FollowedScreen;

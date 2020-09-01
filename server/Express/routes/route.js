@@ -109,22 +109,21 @@ router.delete('/:id', asyncHandler(async(req,res,next)=>{
   res.json({"message": "route deleted"})
 }))
 
-//Follow Route
+//Get Users Followed Routes
+router.get('/user/:userid/follows', asyncHandler(async(req,res,next)=>{
+  const userId = parseInt(req.params.userid)
+  const user = await User.findOne({
+    where :{
+      id: userId
+    },
+    include : ['followedRoutes'],
+    attributes: ["id", "username"]
+  })
 
-router.post('/user/:userid/:type/:routeId', asyncHandler(async(req,res,next)=>{
-  //followable_type = "route"
-  //followable_id = routeId
-  //user_id = userId
-  const routeId = parseInt(req.params.routeId,10)
-  const userId = parseInt(req.params.userid,10)
-  const type = req.params.type
-  try{
-    const areaFollow = await Follower.create({followable_type : type, followable_id: routeId, user_id: userId})
-    res.json({"message": "Route  followed"})
-  }catch(err){
-    res.status(422).send(err.message)
-  }
+  res.status(201).json({user})
 }))
+
+
 
 
 module.exports = router

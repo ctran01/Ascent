@@ -47,7 +47,7 @@ const AreaDetailPage = ({navigation}) => {
     }
 
         //if asyncstorage id === area.user_id show delete/edit icons
-    console.log(area, "Area Detail state")
+    // console.log(area, "Area Detail state")
     return (
         <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
             <ScrollView
@@ -61,7 +61,7 @@ const AreaDetailPage = ({navigation}) => {
                             <Text style={styles.text}>Added by {area.User.username}</Text>
                         </View>
                         <View style={{flexDirection:"row", paddingRight:10}}>
-                            <TouchableOpacity onPress={()=>{followArea(area.id, ()=> navigation.navigate('YourRoute'), ()=>{alert("Area Followed!")} , ()=>{alert("Area Unfollowed!")} )}}>
+                            <TouchableOpacity onPress={()=>{followArea(area.id, ()=> navigation.navigate('Followed'), ()=>{alert("Area Followed!")} , ()=>{alert("Area Unfollowed!")} )}}>
                                 <FontAwesome name="heart" size={24} color="white" />
                             </TouchableOpacity>
                             <Spacer/>

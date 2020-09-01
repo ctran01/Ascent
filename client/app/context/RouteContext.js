@@ -10,6 +10,8 @@ import { AsyncStorage } from 'react-native';
         return action.payload
       case "get_user_routes":
         return action.payload
+      case "get_followed_routes":
+        return action.payload
       default:
         return state
     }
@@ -69,8 +71,9 @@ return async (id) =>{
 //get followed routes 
 const getFollowedRoutes = (dispatch)=>{
   return async() =>{
-    const userid = await AsyncStorage.getItem('userId')
-
+    const userid = await AsyncStorage.getItem('userid')
+    const res = await apiServer.get(`/route/user/${userid}/follows`)
+    dispatch({type: "get_followed_routes", payload: res.data.user.followedRoutes})
   }
 }
 
@@ -104,17 +107,33 @@ const editRoute = (dispatch)=>{
   }
 }
 
+
+const unfollowRoute = async(id) =>{
+    
+  const userid = await AsyncStorage.getItem('userid')
+
+  const res = await apiServer.delete(`/follow/user/${userid}/route/${id}`)
+
+
+}
+
 //Follow Area
 
 const followRoute = (dispatch)=>{
-  return async(id,navigateAway,alertMessage) =>{
+  return async(id,navigateAway,alertMessage,failMessage) =>{
     const userid = await AsyncStorage.getItem('userid')
-    const res = await apiServer.post(`/route/user/${userid}/route/${id}`)
-    if(navigateAway){
-      navigateAway();
-    }
-    if(alertMessage){
-      alertMessage();
+    try{
+
+      const res = await apiServer.post(`/follow/user/${userid}/route/${id}`)
+      if(navigateAway){
+        navigateAway();
+      }
+      if(alertMessage){
+        alertMessage();
+      }
+    }catch(err){
+      unfollowRoute(id);
+      failMessage();
     }
   }
 }
