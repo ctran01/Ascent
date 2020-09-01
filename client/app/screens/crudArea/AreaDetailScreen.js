@@ -6,24 +6,25 @@ import apiServer from '../../api/apiServer'
 import { ScrollView,  } from "react-native-gesture-handler";
 import RouteList from '../../components/RouteList'
 import Spacer from "../../components/Spacer";
+import { FontAwesome } from '@expo/vector-icons'; 
 import { FontAwesome5 } from '@expo/vector-icons'; 
 import {Context as AreaContext} from '../../context/AreaContext'
 
 const AreaDetailPage = ({navigation}) => {
-    const {state, getArea, delArea} = useContext(AreaContext)
+    const {state, delArea, followArea} = useContext(AreaContext)
     const id = navigation.getParam('id')
-    // const [area, setArea] = useState(null)
+    const [area, setArea] = useState([])
     const [routes,setRoutes] = useState([])
 
-    // const getArea = async (id)=>{
-    //     try{
-    //         const res = await apiServer.get(`/area/${id}`)
-    //         setArea(res.data.area)
-    //     }catch(err){
-    //         console.log(err)
-    //     }
-    // }
-    const area = state.find((area)=> area.id === id)
+    const getArea = async (id)=>{
+        try{
+            const res = await apiServer.get(`/area/${id}`)
+            setArea(res.data.area)
+        }catch(err){
+            console.log(err)
+        }
+    }
+    // const area = state.find((area)=> area.id === id)
     
 
     const getRoutes = async(id)=>{
@@ -37,14 +38,13 @@ const AreaDetailPage = ({navigation}) => {
       }
 
     useEffect(()=>{
-        // getArea(id)
+        getArea(id)
         getRoutes(id)
     },[]);
 
-    // if(!area){
-    //     return null;
-    // }
-    // console.log(area)
+    if(!area.User){
+        return null;
+    }
 
         //if asyncstorage id === area.user_id show delete/edit icons
     console.log(area, "Area Detail state")
@@ -61,6 +61,10 @@ const AreaDetailPage = ({navigation}) => {
                             <Text style={styles.text}>Added by {area.User.username}</Text>
                         </View>
                         <View style={{flexDirection:"row", paddingRight:10}}>
+                            <TouchableOpacity onPress={()=>{followArea(area.id, ()=> navigation.navigate('YourRoute'), ()=>{alert("Area Followed!")} , ()=>{alert("Area Unfollowed!")} )}}>
+                                <FontAwesome name="heart" size={24} color="white" />
+                            </TouchableOpacity>
+                            <Spacer/>
                             <TouchableOpacity onPress={()=> navigation.navigate('EditArea', {id: navigation.getParam('id')})}>
                                 <FontAwesome5 name="edit" size={24} color="white" />
                             </TouchableOpacity>

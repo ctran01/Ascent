@@ -5,12 +5,13 @@ import {Text} from 'react-native-elements'
 import { ScrollView } from "react-native-gesture-handler";
 import Spacer from '../../components/Spacer'
 import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome } from '@expo/vector-icons'; 
 import {Context as RouteContext} from '../../context/RouteContext'
 
 
 const RouteDetailPage = ({navigation}) => {
 
-    const {state, getRoute,deleteRoute} = useContext(RouteContext)
+    const {state, getRoute,deleteRoute, followRoute} = useContext(RouteContext)
     const id = navigation.getParam('id');
     // const [route,setRoute] = useState(null)
 
@@ -45,7 +46,11 @@ const RouteDetailPage = ({navigation}) => {
                             </Text>
                         </View>
                         <View style={{flexDirection:"row", paddingRight:10}}>
-                        <TouchableOpacity onPress={()=> navigation.navigate('EditRoute', {id:navigation.getParam('id')})}>
+                            <TouchableOpacity onPress={()=>{followRoute(route.id, ()=> navigation.navigate('YourRoute'), ()=>{alert("Route Followed!")})}}>
+                                <FontAwesome name="heart" size={24} color="white" />
+                            </TouchableOpacity>
+                            <Spacer/>
+                            <TouchableOpacity onPress={()=> navigation.navigate('EditRoute', {id:navigation.getParam('id')})}>
                                 <FontAwesome5 name="edit" size={24} color="white" />
                             </TouchableOpacity>
                             <Spacer/>

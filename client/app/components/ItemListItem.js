@@ -1,11 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native'
 const ItemListItem = ({item}) => {
+  console.log(item)
   return (
     <View style={styles.container}>
       {item.image_url ? <Image style={styles.image} source={{uri: item.image_url}}/> : <Image style={styles.image} source={require('../images/placeholderImage.jpeg')}/>}
       <Text style={{fontWeight:"bold" , color:"white"}}>{item.name}</Text>
-      <Text style={{color:"white"}}>Created By {item.User.username}</Text>
+      {/* <Text style={{color:"white"}}>Created By {item.User.username}</Text> */}
     </View>
   );
 }

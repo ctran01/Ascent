@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React,{useContext, useState} from "react";
 import {View, StyleSheet, TouchableOpacity, Image, SafeAreaView, ImageBackground} from 'react-native'
 import {Text, Button } from 'react-native-elements'
 import { FontAwesome5 } from '@expo/vector-icons'; 
@@ -6,8 +6,15 @@ import { Foundation } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Spacer from '../components/Spacer';
 import ReferralContainer from '../components/ReferralContainer'
+import AboutUs from '../components/AboutUs'
 
 const HomeScreen = ({navigation}) => {
+
+    const[isModalVisable,setModalVisable] = useState(false)
+    const toggleModal = () =>{
+        setModalVisable(!isModalVisable)
+      }
+
     return (
         <ImageBackground style={{flex:1}}source={require('../images/blue-light.jpg')}>
             <SafeAreaView >
@@ -42,7 +49,8 @@ const HomeScreen = ({navigation}) => {
                     </View>
                 </View>
                 <Spacer/>
-                <ReferralContainer />
+                <Button buttonStyle={{backgroundColor:"transparent"}}style={styles.modal} titleStyle={{color:"blue"}}title="About Us" onPress={toggleModal}/>
+                <AboutUs toggleModal={toggleModal} isModalVisable={isModalVisable}/>
             </SafeAreaView>
         </ImageBackground>
     );
@@ -66,7 +74,8 @@ const styles = StyleSheet.create({
         borderRadius:15,
         flexDirection:"row",
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        
     },
     buttonText:{
         fontWeight: "bold"
@@ -80,7 +89,14 @@ const styles = StyleSheet.create({
         borderRadius:15,
         width: 190
         
-    }
+    },
+    modal:{
+        width:100,
+        height: 40,
+        marginLeft:160,
+        marginTop:60,
+        
+      }
 
 })
 
