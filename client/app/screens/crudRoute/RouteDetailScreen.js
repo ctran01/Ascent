@@ -11,29 +11,30 @@ import {Context as RouteContext} from '../../context/RouteContext'
 
 const RouteDetailPage = ({navigation}) => {
 
-    const {state, getRoute,deleteRoute, followRoute} = useContext(RouteContext)
+    const {state,deleteRoute, followRoute} = useContext(RouteContext)
     const id = navigation.getParam('id');
-    // const [route,setRoute] = useState(null)
+    
+    const [route,setRoute] = useState([])
 
-    // const getRoute = async (id)=>{
-    //     try{
-    //         const res = await apiServer.get(`/route/${id}`)
-    //         setRoute(res.data.route)
-    //     }catch(err){
-    //         console.log(err)
-    //     }
-    // }
-    const route = state.find((route)=> route.id === id)
+    const getRoute = async (id)=>{
+        try{
+            const res = await apiServer.get(`/route/${id}`)
+            setRoute(res.data.route)
+        }catch(err){
+            console.log(err)
+        }
+    }
+    // const route = state.find((route)=> route.id === id)
 
-    // useEffect(()=>{
-    //     getRoute(id)
-    // },[])
+    useEffect(()=>{
+        getRoute(id)
+    },[])
 
-    // if(!route){
-    //     return null
-    // }
+    if(!route.User){
+        return null
+    }
     // console.log(route)
-    console.log(route)
+    // console.log(route)
     return (
         <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -46,7 +47,7 @@ const RouteDetailPage = ({navigation}) => {
                             </Text>
                         </View>
                         <View style={{flexDirection:"row", paddingRight:10}}>
-                            <TouchableOpacity onPress={()=>{followRoute(route.id, ()=> navigation.navigate('YourRoute'), ()=>{alert("Route Followed!")})}}>
+                            <TouchableOpacity onPress={()=>{followRoute(route.id, ()=> navigation.navigate('Followed'), ()=>{alert("Route Followed!")} , ()=>{alert("Route Unfollowed!")} )}}>
                                 <FontAwesome name="heart" size={24} color="white" />
                             </TouchableOpacity>
                             <Spacer/>
