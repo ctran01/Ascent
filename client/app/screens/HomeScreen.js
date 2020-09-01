@@ -49,7 +49,9 @@ const HomeScreen = ({navigation}) => {
                     </View>
                 </View>
                 <Spacer/>
-                <Button buttonStyle={{backgroundColor:"transparent"}}style={styles.modal} titleStyle={{color:"blue"}}title="About Us" onPress={toggleModal}/>
+                
+                <Button buttonStyle={{backgroundColor:"transparent", marginTop:100,marginLeft:320}} style={styles.modal} titleStyle={{color:"black", fontSize:16, fontWeight:"bold"}}title="About Us" onPress={toggleModal}/>
+               
                 <AboutUs toggleModal={toggleModal} isModalVisable={isModalVisable}/>
             </SafeAreaView>
         </ImageBackground>
@@ -91,10 +93,12 @@ const styles = StyleSheet.create({
         
     },
     modal:{
-        width:100,
-        height: 40,
-        marginLeft:160,
-        marginTop:60,
+        // width:100,
+        // height: 40,
+        // marginLeft:320,
+        // marginBottom:100,
+        // borderColor:"red",
+        // borderWidth:10,
         
       }
 

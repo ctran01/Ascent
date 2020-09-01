@@ -7,6 +7,7 @@ const usersRouter = require("./routes/users")
 const areasRouter = require("./routes/areas")
 const routesRouter = require('./routes/route')
 const followersRouter = require('./routes/followers')
+const searchRouter = require('./routes/search')
 const app = express();
 
 app.use(bodyParser.json());
@@ -17,6 +18,7 @@ app.use(usersRouter)
 app.use('/area',areasRouter)
 app.use('/route',routesRouter)
 app.use('/follow/',followersRouter)
+app.use('/search/', searchRouter)
 
 
 
