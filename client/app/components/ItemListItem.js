@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native'
 const ItemListItem = ({item}) => {
-  console.log(item)
+  // console.log(item)
   return (
     <View style={styles.container}>
       {item.image_url ? <Image style={styles.image} source={{uri: item.image_url}}/> : <Image style={styles.image} source={require('../images/placeholderImage.jpeg')}/>}

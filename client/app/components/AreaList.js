@@ -7,7 +7,7 @@ import {withNavigation} from 'react-navigation';
 
 
 const AreaList = ({items,navigation,}) => {
-  console.log(items,"arealist")
+  // console.log(items,"arealist")
   return (
     <View >
       <FlatList
