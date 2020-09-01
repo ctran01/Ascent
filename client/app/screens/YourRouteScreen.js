@@ -52,7 +52,7 @@ const YourRouteScreen = ({navigation}) => {
     
   },[])
 
-  // console.log(areaState, "Area Context State")
+  console.log(areaState, "Area Context State")
   return (
     <ImageBackground style={{flex:1}}source={require('../images/blue-light.jpg')}>
       <SafeAreaView>

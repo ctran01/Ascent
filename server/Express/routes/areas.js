@@ -14,12 +14,26 @@ const areaNotFound = (id) =>{
   return err
 }
 
+const userNotFound = (id) =>{
+  const err = new Error('User was not found');
+  err.status = 404
+  err.title = "User was not found";
+  return err
+}
+
+
 
 //GET all Area
 router.get('/', asyncHandler(async(req,res,next)=>{
-  const area = await Area.findAll()
+
+  try{
+    const areas = await Area.findAll()
+    res.json({areas})
+  }catch(err){
+    res.status(201).send(err.message)
+  }
   
-  res.json({area})
+  
 }))
 
 //Add Area
@@ -55,13 +69,22 @@ router.get('/:id', asyncHandler(async(req,res,next)=>{
 
 router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
   const userId = parseInt(req.params.userid,10)
-  const areas = await Area.findAll({
-    where: {
-      user_id : userId
-    },
-    include: [{model: User, attributes:["username"]}]
-  });
-  res.json({areas})
+
+  try{
+    const areas = await Area.findAll({
+      where: {
+        user_id : userId
+      },
+      include: [{model: User, attributes:["username"]}]
+    });
+
+    res.json({areas})
+  }
+  catch(err){
+    res.status(422).send(err.message)
+  }
+
+  
 }))
 
 
@@ -69,13 +92,18 @@ router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
 
 router.get('/route/:id', asyncHandler(async(req,res,next)=>{
   const areaId = parseInt(req.params.id,10)
-  const routes = await Route.findAll({
-    where:{
-      area_id: areaId
-    },
-    include: [{model: User, attributes:["username"]}]
-  })
-  res.json({routes})
+  try{
+    const routes = await Route.findAll({
+      where:{
+        area_id: areaId
+      },
+      include: [{model: User, attributes:["username"]}]
+    })
+    res.json({routes})
+    
+  }catch(err){
+    res.status(422).send(err.message)
+  }
 }))
 
 
@@ -90,19 +118,47 @@ router.put('/:id', asyncHandler(async(req,res,next)=>{
     },
     include:[{model: User, attributes:["username"]}]
   })
-  res.json({area})
+
+  if(area){
+    res.json({area})
+
+  }else{
+    next(areaNotFound(areaId))
+  }
  
 }))
 
 //Delete Area
 router.delete('/:id', asyncHandler(async(req,res,next)=>{
   const areaId = parseInt(req.params.id,10)
-  const area = await Area.destroy({
-    where: {
-      id: areaId
-    }
-  })
-  res.json({"message": "area deleted"})
+  try{
+    const area = await Area.destroy({
+      where: {
+        id: areaId
+      }
+    })
+
+    res.status(200).end()
+
+  }catch(err){
+    res.status(422).send(err.message)
+  }
 }))
+
+//Get Users Followed Areas
+router.get('/user/:userid/follows', asyncHandler(async(req,res,next)=>{
+  const userId = parseInt(req.params.userid)
+  const user = await User.findOne({
+    where :{
+      id: userId
+    },
+    include : ['followedAreas'],
+    attributes: ["id", "username"]
+  })
+
+  res.status(201).json({user})
+}))
+
+
 
 module.exports = router

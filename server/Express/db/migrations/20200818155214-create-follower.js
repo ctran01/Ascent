@@ -9,10 +9,12 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       followable_type: {
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(20),
+        primaryKey: true,
       },
       followable_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        primaryKey: true,
       },
       user_id: {
         allowNull: false,

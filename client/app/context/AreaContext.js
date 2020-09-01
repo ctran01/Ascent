@@ -10,7 +10,8 @@ const areaReducer =(state,action)=>{
       return action.payload
     case "get_area":
       return action.payload
-    
+    case "get_followed_areas":
+      return action.payload    
     case "get_user_areas":
       return action.payload
 
@@ -51,6 +52,15 @@ const getUserAreas = (dispatch)=>{
   }
 }
 
+//get followed areas 
+const getFollowedAreas = (dispatch) =>{
+  return async()=>{
+    const userid = await AsyncStorage.getItem('userid')
+    const res = await apiServer.get(`/area/user/${userid}/follows`)
+    dispatch({type: "get_followed_areas", payload: res.data.user.followedAreas})
+  }
+}
+
 //Add area
 const addArea =(dispatch) =>{
   return async(name,description,navigateAway,alertMessage)=>{
@@ -85,6 +95,7 @@ const editArea = (dispatch)=>{
   }
 }
 
+//Delete Area
 const delArea = (dispatch) =>{
   return async(id,navigateAway,alertMessage)=>{
     const res = await apiServer.delete(`/area/${id}`)
@@ -97,4 +108,36 @@ const delArea = (dispatch) =>{
   }
 }
 
-export const {Provider,Context} =  createDataContext(areaReducer, {getAreas, addArea, getArea, editArea, delArea, getUserAreas}, [])
+
+const unfollowArea = async(id) =>{
+    
+      const userid = await AsyncStorage.getItem('userid')
+
+      const res = await apiServer.delete(`/follow/user/${userid}/area/${id}`)
+
+    
+}
+//Follow Area
+
+const followArea = (dispatch)=>{
+  return async(id,navigateAway,alertMessage,failMessage) =>{
+    const userid = await AsyncStorage.getItem('userid')
+    try{
+
+      const res = await apiServer.post(`/follow/user/${userid}/area/${id}`)
+      if(navigateAway){
+        navigateAway();
+      }
+      if(alertMessage){
+        alertMessage();
+      }
+    }catch(err){
+      unfollowArea(id);
+      failMessage();
+    }
+  }
+}
+
+
+
+export const {Provider,Context} =  createDataContext(areaReducer, {getAreas, addArea, getArea, editArea, delArea, getUserAreas,followArea, getFollowedAreas}, [])

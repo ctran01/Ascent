@@ -59,39 +59,66 @@ const getRoute =(dispatch)=>{
 
 //get routes created by user
 const getUserRoutes = (dispatch)=>{
-  return async (id) =>{
-    const userid = await AsyncStorage.getItem('userid')
-    const res = await apiServer.get(`/route/user/${userid}`)
-    dispatch({type: "get_user_routes", payload: res.data.routes})
+return async (id) =>{
+  const userid = await AsyncStorage.getItem('userid')
+  const res = await apiServer.get(`/route/user/${userid}`)
+  dispatch({type: "get_user_routes", payload: res.data.routes})
+}
+}
+
+//get followed routes 
+const getFollowedRoutes = (dispatch)=>{
+  return async() =>{
+    const userid = await AsyncStorage.getItem('userId')
+
   }
 }
 
-  const deleteRoute = (dispatch)=>{
-    return async(id,navigateAway,alertMessage)=>{
-      const res = await apiServer.delete(`/route/${id}`)
-      if(navigateAway){
-        navigateAway();
-      }
-      if(alertMessage){
-        alertMessage();
-      }
+
+
+
+//delete route
+const deleteRoute = (dispatch)=>{
+  return async(id,navigateAway,alertMessage)=>{
+    const res = await apiServer.delete(`/route/${id}`)
+    if(navigateAway){
+      navigateAway();
+    }
+    if(alertMessage){
+      alertMessage();
     }
   }
+}
 
-  const editRoute = (dispatch)=>{
-    return async(id,name,grade, type, latitude,longitude, description,navigateAway,alertMessage)=>{
+const editRoute = (dispatch)=>{
+  return async(id,name,grade, type, latitude,longitude, description,navigateAway,alertMessage)=>{
 
-      const res = await apiServer.put(`/route/${id}`, {name,grade, type, latitude, longitude,description})
-      dispatch({type: "edit_route", payload: {id,name,grade,type,latitude,longitude,description}})
-      if(navigateAway){
-        navigateAway();
-      }
-      if(alertMessage){
-        alertMessage();
-      }
+    const res = await apiServer.put(`/route/${id}`, {name,grade, type, latitude, longitude,description})
+    dispatch({type: "edit_route", payload: {id,name,grade,type,latitude,longitude,description}})
+    if(navigateAway){
+      navigateAway();
+    }
+    if(alertMessage){
+      alertMessage();
     }
   }
+}
+
+//Follow Area
+
+const followRoute = (dispatch)=>{
+  return async(id,navigateAway,alertMessage) =>{
+    const userid = await AsyncStorage.getItem('userid')
+    const res = await apiServer.post(`/route/user/${userid}/route/${id}`)
+    if(navigateAway){
+      navigateAway();
+    }
+    if(alertMessage){
+      alertMessage();
+    }
+  }
+}
  
 
 
-export const {Context,Provider} = createDataContext(routeReducer, {addRoute,deleteRoute,editRoute,getRoute,getRoutes,getUserRoutes}, [])
+export const {Context,Provider} = createDataContext(routeReducer, {addRoute,deleteRoute,editRoute,getRoute,getRoutes,getUserRoutes,followRoute, getFollowedRoutes}, [])

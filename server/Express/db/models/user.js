@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     username: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
   email: {
       type: DataTypes.STRING,
@@ -23,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'followedAreas',
       through: {
         model: 'Follower',
-        scrope: {
+        scope: {
           followable_type: 'area'
         }
       },
