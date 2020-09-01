@@ -28,7 +28,7 @@ const FollowedScreen = ({navigation}) => {
           };
     },[]) 
 
-    console.log(areaState,"Area State Follow Screen")
+    // console.log(areaState,"Area State Follow Screen")
 
     return (
         <ImageBackground style={{flex:1}}source={require('../images/blue-light.jpg')}>

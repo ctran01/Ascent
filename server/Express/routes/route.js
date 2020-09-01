@@ -19,9 +19,9 @@ const routeNotFound = (id)=>{
 
 //GET all Routes
 router.get('/', asyncHandler(async(req,res,next)=>{
-  const route = await Route.findAll()
+  const routes = await Route.findAll()
   
-  res.json({route})
+  res.json({routes})
 }))
 
 

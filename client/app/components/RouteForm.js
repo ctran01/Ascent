@@ -35,7 +35,7 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
         inputStyle={styles.input}
         labelStyle={styles.label}
         />
-        <Text style={{fontSize:16, color: "#86939e", fontWeight:"bold", marginLeft:10,marginBottom:10}}>Type</Text>
+        <Text style={{fontSize:16, color: "white", fontWeight:"bold", marginLeft:10,marginBottom:10}}>Type</Text>
         <DropDownPicker items={[
           {label: 'Sport', value: 'Sport'},
           {label: 'Boulder', value: 'Boulder'}
