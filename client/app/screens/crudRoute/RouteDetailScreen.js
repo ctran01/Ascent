@@ -33,8 +33,7 @@ const RouteDetailPage = ({navigation}) => {
     if(!route.User){
         return null
     }
-    // console.log(route)
-    // console.log(route)
+
     return (
         <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -51,7 +50,7 @@ const RouteDetailPage = ({navigation}) => {
                                 <FontAwesome name="heart" size={24} color="white" />
                             </TouchableOpacity>
                             <Spacer/>
-                            <TouchableOpacity onPress={()=> navigation.navigate('EditRoute', {id:navigation.getParam('id')})}>
+                            <TouchableOpacity onPress={()=> navigation.navigate('EditRoute', {id: navigation.getParam('id')})}>
                                 <FontAwesome5 name="edit" size={24} color="white" />
                             </TouchableOpacity>
                             <Spacer/>

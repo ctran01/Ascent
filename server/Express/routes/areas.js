@@ -27,7 +27,12 @@ const userNotFound = (id) =>{
 router.get('/', asyncHandler(async(req,res,next)=>{
 
   try{
-    const areas = await Area.findAll()
+    const areas = await Area.findAll({
+      include: [{model: User, attributes:["username"]}, {model: Route, attributes:["name"]}],
+      order : [
+        ['name', 'ASC']
+      ]
+    })
     res.json({areas})
   }catch(err){
     res.status(201).send(err.message)

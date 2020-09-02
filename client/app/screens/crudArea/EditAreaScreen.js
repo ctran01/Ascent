@@ -28,7 +28,7 @@ const EditAreaScreen = ({navigation}) => {
   //   getArea(id)
 
   // },[])
-  console.log(area, "edit Area state")
+  // console.log(area, "edit Area state")
 
 
   return (
@@ -40,7 +40,7 @@ const EditAreaScreen = ({navigation}) => {
       initialValues={{name: area.name, description: area.description}}
       submitButtonText={"Confirm Changes"}
       onSubmit={(name,description)=> {
-        editArea(id,name,description, ()=> navigation.navigate('YourRoute'), ()=>{alert("Area saved!")})}}
+        editArea(id,name,description, ()=> navigation.navigate("Home"), ()=>{alert("Area saved!")})}}
       />
     </View>
     </ImageBackground>

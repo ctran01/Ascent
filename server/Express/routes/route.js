@@ -19,7 +19,13 @@ const routeNotFound = (id)=>{
 
 //GET all Routes
 router.get('/', asyncHandler(async(req,res,next)=>{
-  const routes = await Route.findAll()
+  const routes = await Route.findAll({
+    include: [{model: User, attributes:["username"]}, {model: Area, attributes:["name"]}],
+    order:[
+      ['name', 'ASC']
+    ]
+
+  })
   
   res.json({routes})
 }))
