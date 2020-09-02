@@ -1,15 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, ScrollView, FlatList} from 'react-native';
+import React, {useState, useEffect, useContext} from 'react';
+import {View, StyleSheet, ScrollView, FlatList, SectionList, TouchableOpacity, Image} from 'react-native';
 import {Text} from 'react-native-elements'
 // import SearchBar from '../components/SearchBar';
 import apiServer from '../api/apiServer'
 import SearchResultsList from '../components/SearchResultsList';
 import {SearchBar} from 'react-native-elements'
 import { set } from 'react-native-reanimated';
+import {Context as routeContext} from '../context/RouteContext'
+import {Context as areaContext} from '../context/AreaContext'
 
 
-const SearchScreen = () => {
+const SearchScreen = ({navigation}) => {
     // const [searchTerm,  setSearchTerm] = useState('')
+    const {setSearchedRoutes} = useContext(routeContext)
+    const {setSearchedAreas} = useContext(areaContext)
     const [areaSearchResults, setAreaSearchResults] = useState([])
     const [routeSearchResults, setRouteSearchResults] = useState([])
     const [value,setValue] = useState('')
@@ -39,6 +43,8 @@ const SearchScreen = () => {
             let areaRes = await apiServer.get(`/area/`)
             // setAreaSearchResults(areaRes.data.areas)
             setCachedArea(areaRes.data.areas)
+            setSearchedAreas(areaRes.data.areas)
+            setSearche
         }catch(err){
             console.log(err)
         }
@@ -46,6 +52,8 @@ const SearchScreen = () => {
             let routeRes = await apiServer.get(`/route/`)
             // setRouteSearchResults(routeRes.data.routes)
             setCachedRoute(routeRes.data.routes)
+            setSearchedRoutes(routeRes.data.routes)
+            
         }catch(err){
             console.log(err)
         }
@@ -63,6 +71,7 @@ const SearchScreen = () => {
              return itemData.indexOf(searchData)> -1;
         })
         setAreaSearchResults(searchedArea)
+
         const searchedRoute = cachedRoute.filter(item =>{
             const itemData = `${item.name.toUpperCase()}`;
             const searchData = search.toUpperCase();
@@ -89,40 +98,121 @@ const SearchScreen = () => {
             searchIcon={{color:"black"}}
             autoCapitalize="none"
             autoCorrect={false}
-
             />
-                <Text h3 style={{backgroundColor:"#bdc6cf"}}>Area</Text>
+            {/* "#bdc6cf" */}
+                <Text h3 style={{backgroundColor:"black", color:"white"}}>Area</Text>
+                {areaSearchResults.length === 0 ? <Text style={{color:"red"}}>No items found</Text> : null}
                     <FlatList
                         data={areaSearchResults}
                         keyExtractor={(result)=> result.id.toString()}
                         renderItem={({item})=>{
                             return(
-
-                                <Text>{item.name}</Text>
+                                <TouchableOpacity style={{borderBottomWidth:1, backgroundColor:"#bdc6cf"}} onPress={()=> navigation.navigate('AreaDetail',{id:item.id, title: item.name})}>
+                                    <View style={{  height:60, flexDirection:"row", justifyContent:"space-between"}}>
+                                        {item.image_url ? <Image style={styles.image} source={{uri: item.image_url}}/> : <Image style={styles.image} source={require('../images/placeholderImage.jpeg')}/>}
+                                        <View >
+                                            <View style={{paddingTop:5}}>
+                                                <Text style={{ fontSize:16,fontWeight:"bold", marginRight:125, width:140}}>
+                                                    {item.name}
+                                                </Text>
+                                            </View>
+                                            <View>
+                                                <Text style={{fontSize:12, marginTop:20}}>
+                                                    Created by: {item.User.username}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View style={{ paddingLeft: 4, paddingTop:10}}>
+                                            <Text>
+                                                {item.Routes.length} Routes
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
                             )
                         }}
-                />
-                <Text h3 style={{backgroundColor:"#bdc6cf"}}>Route</Text>
+                    />
+                <Text h3 style={{backgroundColor:"black", color:"white"}}>Route</Text>
+                {routeSearchResults.length === 0 ? <Text style={{color:"red"}}>No items found</Text> : null}
                     <FlatList
                         data={routeSearchResults}
                         keyExtractor={(result)=> result.id.toString()}
                         renderItem={({item})=>{
                             return(
-
-                                <Text>{item.name}</Text>
+                                <TouchableOpacity style={{borderBottomWidth:1, backgroundColor:"#bdc6cf"}} onPress={()=> navigation.navigate('RouteDetail', {id:item.id, title:item.name})}>
+                                    <View style={{  height:60, flexDirection:"row", justifyContent:"space-between"}}>
+                                        {item.image_url ? <Image style={styles.image} source={{uri: item.image_url}}/> : <Image style={styles.image} source={require('../images/placeholderImage.jpeg')}/>}
+                                        <View >
+                                            <View style={{paddingTop:5}}>
+                                                <Text style={{ fontSize:16,fontWeight:"bold", marginRight:150, width:140}}>
+                                                    {item.name}
+                                                </Text>
+                                                <Text style={{fontSize:10}}>
+                                                    {item.Area.name}
+                                                </Text>
+                                            </View>
+                                            <View>
+                                                <Text style={{fontSize:12,marginTop:7}}>
+                                                    Created by: {item.User.username}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View >
+                                            <Text>
+                                                {item.type}
+                                            </Text>
+                                            <Text style={{marginTop:5}}>
+                                                {item.grade}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
                             )
                         }}
-                />
+                    />
 
 
-
+                
                 {/* <SearchResultsList results={areaSearchResults}/>
                 <Text h3 style={{backgroundColor:"#bdc6cf"}}>Routes</Text>
                 <SearchResultsList results={routeSearchResults}/> */}
-            
+            {/* <SectionList
+                sections={[
+                    {
+                        title: 'Areas',
+                        data: areaSearchResults,
+                    },
+                    {
+                        title: 'Routes',
+                        data: routeSearchResults
+                    }
+                ]}
+                renderItem={({item}) =>{
+                    return(
+                        
+                        <Text>{item.name}</Text>
+                    )
+                }}
+                renderSectionHeader={({section}) =>{
+                    return(
+                    
+
+                    <Text h3 style={{backgroundColor:"#bdc6cf", marginBottom:10}}>{section.title}</Text>
+                    
+                    )
+                }}
+                keyExtractor={(item)=>item.id.toString()}
+            /> */}
         </View>    
     );
 }
+
+const styles = StyleSheet.create({
+    image:{
+        width:80,
+        height:60
+    }
+})
 SearchScreen.navigationOptions = ({navigation}) => {
   
     return {

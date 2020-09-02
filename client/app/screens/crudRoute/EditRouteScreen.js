@@ -6,6 +6,7 @@ import AreaForm from '../../components/AreaForm';
 const EditRouteScreen = ({navigation}) => {
 
   const {state, editRoute} = useContext(RouteContext)
+  
   const id = navigation.getParam("id");
   const route = state.find((route)=> route.id === id)
   return (
@@ -16,7 +17,7 @@ const EditRouteScreen = ({navigation}) => {
       initialValues={{name: route.name, grade: route.grade, type: route.type, latitude: route.latitude, longitude: route.longitude, description: route.description}}
       submitButtonText={"Confirm Changes"}
       onSubmit={(name,grade,type,latitude,longitude,description)=>{
-        editRoute(id,name,grade,type,latitude,longitude,description, ()=> navigation.navigate('YourRoute'), ()=>{alert("Route saved!")})}}
+        editRoute(id,name,grade,type,latitude,longitude,description, ()=> navigation.navigate('Home'), ()=>{alert("Route saved!")})}}
       />
         </View>
     </ImageBackground>

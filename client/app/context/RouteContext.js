@@ -12,6 +12,8 @@ import { AsyncStorage } from 'react-native';
         return action.payload
       case "get_followed_routes":
         return action.payload
+      case "set_searched_routes":
+        return action.payload
       default:
         return state
     }
@@ -137,7 +139,14 @@ const followRoute = (dispatch)=>{
     }
   }
 }
+
+const setSearchedRoutes =  (dispatch) =>{
+  return (data) =>{
+
+    dispatch({type: "set_searched_routes", payload: data })
+  }
+}
  
 
 
-export const {Context,Provider} = createDataContext(routeReducer, {addRoute,deleteRoute,editRoute,getRoute,getRoutes,getUserRoutes,followRoute, getFollowedRoutes}, [])
+export const {Context,Provider} = createDataContext(routeReducer, {addRoute,deleteRoute,editRoute,getRoute,getRoutes,getUserRoutes,followRoute, getFollowedRoutes, setSearchedRoutes}, [])

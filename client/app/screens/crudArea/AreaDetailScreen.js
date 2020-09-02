@@ -15,7 +15,7 @@ const AreaDetailPage = ({navigation}) => {
     const id = navigation.getParam('id')
     const [area, setArea] = useState([])
     const [routes,setRoutes] = useState([])
-
+    console.log(state)
     const getArea = async (id)=>{
         try{
             const res = await apiServer.get(`/area/${id}`)
@@ -40,9 +40,13 @@ const AreaDetailPage = ({navigation}) => {
     useEffect(()=>{
         getArea(id)
         getRoutes(id)
+        
     },[]);
 
     if(!area.User){
+        return null;
+    }
+    if(!area){
         return null;
     }
 
@@ -70,7 +74,7 @@ const AreaDetailPage = ({navigation}) => {
                             </TouchableOpacity>
                             <Spacer/>
                             <TouchableOpacity onPress={()=> Alert.alert("Delete", "Are you sure you want to delete?", [
-                                {text: "Yes", onPress: ()=> delArea(area.id , ()=> navigation.navigate('YourRoute'), ()=>{alert("Area deleted!")})},
+                                {text: "Yes", onPress: ()=> delArea(area.id , ()=> navigation.navigate('Home'), ()=>{alert("Area deleted!")})},
                                 {text: "No", onPress: ()=> null}
                             ])}>
                                 <FontAwesome5 name="trash" size={24} color="white" />

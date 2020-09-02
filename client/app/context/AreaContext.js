@@ -14,11 +14,8 @@ const areaReducer =(state,action)=>{
       return action.payload    
     case "get_user_areas":
       return action.payload
-
-    // case "edit_area":
-    //   return state.map((area)=>{
-    //     return area.id === action.payload.id ? action.payload : area;
-    //   })
+    case "set_searched_areas":
+      return action.payload
     default:
       return state
   }
@@ -138,6 +135,11 @@ const followArea = (dispatch)=>{
   }
 }
 
+const setSearchedAreas = (dispatch) =>{
+  return (data) =>{
+    dispatch({type: "set_searched_areas", payload: data})
+  }
+}
 
 
-export const {Provider,Context} =  createDataContext(areaReducer, {getAreas, addArea, getArea, editArea, delArea, getUserAreas,followArea, getFollowedAreas}, [])
+export const {Provider,Context} =  createDataContext(areaReducer, {getAreas, addArea, getArea, editArea, delArea, getUserAreas,followArea, getFollowedAreas, setSearchedAreas}, [])
