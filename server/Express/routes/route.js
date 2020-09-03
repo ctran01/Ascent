@@ -92,8 +92,8 @@ router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
 //Edit Route
 router.put('/:id', asyncHandler(async(req,res,next)=>{
   const routeid = parseInt(req.params.id,10)
-  const {name,grade, type, latitude, longitude,description} = req.body
-  const route = await Route.update({name:name,grade:grade, type:type, latitude:latitude, longitude:longitude,description:description},{
+  const {name,grade, type, areaid, latitude, longitude,description} = req.body
+  const route = await Route.update({name:name,grade:grade, type:type, latitude:latitude, longitude:longitude,description:description, area_id: areaid},{
     where: {
       id : routeid
     },

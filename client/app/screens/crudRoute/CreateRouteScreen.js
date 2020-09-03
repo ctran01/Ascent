@@ -16,8 +16,8 @@ const CreateRouteScreen = ({navigation}) => {
         <RouteForm 
           submitButtonText={"Add Route"}
           onSubmit={
-            (name,description,grade,type,latitude,longitude)=>{
-              addRoute(name,description,grade,type,latitude,longitude, ()=>navigation.navigate('Home'), ()=>alert("Route Saved!"))}}
+            (name,description,grade,type,areaid,latitude,longitude)=>{
+              addRoute(name,description,grade,type,areaid,latitude,longitude, ()=>navigation.navigate('Home'), ()=>alert("Route Added!"))}}
           ></RouteForm>
       </View>
     </ImageBackground>

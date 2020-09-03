@@ -44,7 +44,6 @@ const SearchScreen = ({navigation}) => {
             // setAreaSearchResults(areaRes.data.areas)
             setCachedArea(areaRes.data.areas)
             setSearchedAreas(areaRes.data.areas)
-            setSearche
         }catch(err){
             console.log(err)
         }
