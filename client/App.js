@@ -49,10 +49,10 @@ const navigator = createSwitchNavigator(
   {
     //LoadingScreen checks for token and id in local storage
     // Loading: LoadingScreen,
-    // loginFlow: createStackNavigator({
-    //   Signin: SigninScreen,
-    //   Signup: SignupScreen
-    // }),
+    loginFlow: createStackNavigator({
+      Signin: SigninScreen,
+      Signup: SignupScreen
+    }),
     mainFlow: createBottomTabNavigator({
       homeFlow: homeFlow,
       Account: AccountScreen

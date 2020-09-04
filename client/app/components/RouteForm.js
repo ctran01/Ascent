@@ -93,6 +93,7 @@ console.log(selectedArea)
             inputContainerStyle={{borderWidth: 1,borderColor:"white", width:100}}
             inputStyle={styles.input}
             labelStyle={styles.label}
+            selectionColor={"white"}
             />
           </View>
           <View style={{marginLeft:20}}>
@@ -105,6 +106,7 @@ console.log(selectedArea)
             inputContainerStyle={{borderWidth: 1,borderColor:"white", width:100}}
             inputStyle={{color:"white"}}
             labelStyle={styles.label} 
+            selectionColor={"white"}
             />
           </View>
         </View>

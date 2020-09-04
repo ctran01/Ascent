@@ -1,6 +1,6 @@
 import React,{useState, useContext} from 'react';
-import {View, StyleSheet, SafeAreaView,ImageBackground,Image,TouchableOpacity, Button} from 'react-native';
-import {Text, Input, Button as SignInButton} from 'react-native-elements'
+import {View, StyleSheet, SafeAreaView,ImageBackground,Image,TouchableOpacity} from 'react-native';
+import {Text, Input, Button} from 'react-native-elements'
 import {Context as UserContext} from '../context/UserContext';
 import Spacer from '../components/Spacer'
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -56,7 +56,7 @@ const SigninScreen = ({navigation}) => {
           />
         {state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text>: null}
           <Spacer>
-          <SignInButton buttonStyle={{backgroundColor:"#1359c4"}}title={"Sign In"} onPress={()=> signin({email,password})} />
+          <Button buttonStyle={{backgroundColor:"#1359c4"}} title={"Sign In"} onPress={()=> signin({email,password})} />
           </Spacer>
         <NavigationEvents 
           //  onWillFocus={()=>{}} Right before navigating to screen
@@ -70,8 +70,12 @@ const SigninScreen = ({navigation}) => {
           </Spacer>
         </TouchableOpacity>
         <Spacer/>
+        <Button title={"Demo User"} onPress={()=> signin({email:'demo@email.com',password:'password'})}>
+          
+        </Button>
       </View>
-      <SignInButton buttonStyle={{backgroundColor:"transparent"}}style={styles.modal} titleStyle={{color:"white"}}title="About Us" onPress={toggleModal}/>
+      <Button buttonStyle={{backgroundColor:"transparent"}}style={styles.modal} titleStyle={{color:"white"}}title="About Us" onPress={toggleModal}/>
+      
       <AboutUs toggleModal={toggleModal} isModalVisable={isModalVisable}/>
     </SafeAreaView>
     </ImageBackground>

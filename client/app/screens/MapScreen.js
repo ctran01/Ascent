@@ -18,13 +18,13 @@ const Map = ({navigation}) => {
   const askPermission = async()=>{
     try{
       await requestPermissionsAsync();
-      await watchPositionAsync({
-        accuracy: Accuracy.BestForNavigation,
-        timeInterval:1000,
-        distanceInterval: 10
-      }, (location)=>{
-        setCurrentLocation(location)
-      })
+      // await watchPositionAsync({
+      //   accuracy: Accuracy.BestForNavigation,
+      //   timeInterval:1000,
+      //   distanceInterval: 10
+      // }, (location)=>{
+      //   setCurrentLocation(location)
+      // })
     }catch(err){
       setErr(err)
     }
