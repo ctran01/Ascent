@@ -55,7 +55,7 @@ const RouteDetailPage = ({navigation}) => {
                             </TouchableOpacity>
                             <Spacer/>
                             <TouchableOpacity onPress={()=> Alert.alert("Delete", "Are you sure you want to delete?", [
-                                {text: "Yes", onPress: ()=> deleteRoute(route.id, ()=> navigation.navigate('YourRoute'), ()=>{alert("Route deleted!")})},
+                                {text: "Yes", onPress: ()=> deleteRoute(route.id, ()=> navigation.navigate('Home'), ()=>{alert("Route deleted!")})},
                                 {text: "No", onPress: ()=> null}
                             ])}>
                                 <FontAwesome5 name="trash" size={24} color="white" />

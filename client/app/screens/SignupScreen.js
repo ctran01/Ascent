@@ -61,7 +61,7 @@ const SignupScreen = ({navigation}) => {
        />
      {state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text>: null}
       <Spacer>
-       <Button title={"Create Account"} onPress={()=> signup({username,email,password})} />
+       <Button title={"Create Account"} buttonStyle={{backgroundColor:"#1359c4"}} onPress={ ()=> signup({username,email,password})} />
       </Spacer>
     <NavigationEvents 
       //  onWillFocus={()=>{}} Right before navigating to screen
