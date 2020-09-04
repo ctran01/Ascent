@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import {View, Text, StyleSheet, ActivityIndicator, Image} from 'react-native';
 import MapView , {PROVIDER_GOOGLE, Marker, Circle, Callout} from 'react-native-maps';
 import apiServer from '../api/apiServer'
@@ -18,13 +18,13 @@ const Map = ({navigation}) => {
   const askPermission = async()=>{
     try{
       await requestPermissionsAsync();
-      // await watchPositionAsync({
-      //   accuracy: Accuracy.BestForNavigation,
-      //   timeInterval:1000,
-      //   distanceInterval: 10
-      // }, (location)=>{
-      //   setCurrentLocation(location)
-      // })
+      await watchPositionAsync({
+        accuracy: Accuracy.BestForNavigation,
+        timeInterval:1000,
+        distanceInterval: 10
+      }, (location)=>{
+        setCurrentLocation(location)
+      })
     }catch(err){
       setErr(err)
     }
@@ -39,12 +39,12 @@ const Map = ({navigation}) => {
     return <ActivityIndicator size ="large" style={{marginTop:200}}/>
   }
 
-
+  const circleRef = useRef(null)
   return (
     <View>
-      <Text>Map</Text>
-      {err ? <Text>Location services have been disabled</Text>: null}
-      <MapView style={{height:400}}
+      
+      {/* {err ? <Text>Location services have been disabled</Text>: null} */}
+      <MapView style={{height:"100%"}}
       onma
       provider={PROVIDER_GOOGLE}
       initialRegion={{
@@ -61,11 +61,15 @@ const Map = ({navigation}) => {
       }}
       >
         <Circle
+          ref={circleRef}
           center={currentLocation.coords}
           radius={5000}
-          strokeColor="rgba(5,44,101,1)"
-          fillColor="rgba(5,44,101,1)"
+          onLayout={() => (circleRef.current.setNativeProps({
+            strokeColor: "blue",
+            fillColor: "blue",
+          }))}
         />
+
         {state.map(item =>{
           return(
             <Marker
@@ -94,4 +98,14 @@ const styles=StyleSheet.create({
     width:50
   }
 })
+
+Map.navigationOptions = ({navigation}) => {
+  
+  return {
+    title: "Search" ,
+    headerTitleStyle: {color: 'white'},
+    headerBackTitleVisible: false,
+    headerStyle: {backgroundColor: 'black', }
+  };
+};
 export default Map;

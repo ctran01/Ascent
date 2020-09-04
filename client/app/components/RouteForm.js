@@ -69,7 +69,8 @@ console.log(selectedArea)
             <Text style={{fontSize:16, color: "white", fontWeight:"bold", marginLeft:10,marginBottom:10}}>Type</Text>
             <DropDownPicker items={[
               {label: 'Sport', value: 'Sport'},
-              {label: 'Boulder', value: 'Boulder'}
+              {label: 'Boulder', value: 'Boulder'},
+              {label: 'Trad', value: 'Trad'}
             ]}
             defaultValue={initialValues.type}
             containerStyle={{height:40, width: 120, marginLeft:10,marginBottom:10}}
