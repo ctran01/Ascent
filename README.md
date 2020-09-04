@@ -1,6 +1,6 @@
 # Ascent
 
-A simple audio streaming platform modeled after Spotify. An AJAX express app created with Node.js and Postgres.
+
   * [Technologies](#Technologies)
   * [Illustrations](#Illustrations)
   * [Features](#Features)
