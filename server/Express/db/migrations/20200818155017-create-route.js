@@ -27,10 +27,10 @@ module.exports = {
         type: Sequelize.STRING(150)
       },
       latitude: {
-        type: Sequelize.NUMERIC(10,4)
+        type: Sequelize.NUMERIC(14,7)
       },
       longitude: {
-        type: Sequelize.NUMERIC(10,4)
+        type: Sequelize.NUMERIC(14,7)
       },
       area_id: {
         type: Sequelize.INTEGER,

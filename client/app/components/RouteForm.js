@@ -1,16 +1,43 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect, useContext} from 'react';
 import {View, SafeAreaView, StyleSheet, ImageBackground, TouchableOpactity,Keyboard} from 'react-native'
 import {Input, Button, Text} from 'react-native-elements'
 import DropDownPicker from 'react-native-dropdown-picker';
+import apiServer from '../api/apiServer'
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
+
 
 const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
+  
   const [name, setName] = useState(initialValues.name)
   const [description, setDescription] = useState(initialValues.description)
   const [grade,setGrade] =useState(initialValues.grade)
   const [type,setType] =useState(initialValues.type)
   const [latitude,setLatitude] =useState(initialValues.latitude)
   const [longitude,setLongitude] =useState(initialValues.longitude)
-  const [area,setarea] =useState(initialValues.area)
+  const [areaIds,setAreaIds] =useState([])
+  const [selectedArea, setSelectedArea] = useState(initialValues.areaid)
+  const [error,setError] = useState('')
+  
+  const getAreaIds = async()=>{
+    try{
+      let res = await apiServer.get(`/area/`)
+      setAreaIds(res.data.areas)
+    }catch(err){
+    console.log(err)
+    }
+  }
+
+  useEffect(()=>{
+    getAreaIds()
+  },[])
+
+console.log(selectedArea)
+
+  const validate =(num)=>{
+    if(typeof(num) !== 'number'){
+      setError('Needs to be a Number')
+    }
+  }
 
   return(
       <SafeAreaView>
@@ -24,6 +51,7 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
         inputContainerStyle={styles.inputContainter}
         inputStyle={styles.input}
         labelStyle={styles.label}
+        selectionColor={"white"}
         />
         <Input 
         label="Grade"
@@ -34,20 +62,28 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
         inputContainerStyle={styles.inputContainter}
         inputStyle={styles.input}
         labelStyle={styles.label}
+        selectionColor={"white"}
         />
-        <Text style={{fontSize:16, color: "white", fontWeight:"bold", marginLeft:10,marginBottom:10}}>Type</Text>
-        <DropDownPicker items={[
-          {label: 'Sport', value: 'Sport'},
-          {label: 'Boulder', value: 'Boulder'}
-        ]}
-        defaultNull
-        containerStyle={{height:40, width: 120, marginLeft:10,marginBottom:10}}
-        placeholder="Select type"
-        onChangeItem={(item)=>{setType(item.value)}}
-        />
+        
+          
+            <Text style={{fontSize:16, color: "white", fontWeight:"bold", marginLeft:10,marginBottom:10}}>Type</Text>
+            <DropDownPicker items={[
+              {label: 'Sport', value: 'Sport'},
+              {label: 'Boulder', value: 'Boulder'},
+              {label: 'Trad', value: 'Trad'}
+            ]}
+            defaultValue={initialValues.type}
+            containerStyle={{height:40, width: 120, marginLeft:10,marginBottom:10}}
+            placeholder="Select type"
+            onChangeItem={(item)=>{setType(item.value)}}
+            />
+          
+          
+            
+          
+        
         <View style={{flexDirection:"row"}}>
           <View>
-
             <Input 
             label="Latitude"        
             placeholderTextColor="black"
@@ -72,6 +108,15 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
             />
           </View>
         </View>
+
+        <Text style={{fontSize:16, color: "white", fontWeight:"bold", marginLeft:10, marginBottom:10}}>Area</Text>
+            <DropDownPicker items={ areaIds.map(area=> ({label:area.name, value:area.id}))}
+            // defaultValue={selectedArea}
+            containerStyle={{height:40, width: 140, marginLeft:10,marginBottom:10}}
+            placeholder="Select type"
+            onChangeItem={(item)=>{setSelectedArea(item.value)}}
+          />
+        
         <Input 
         label="Description"
         placeholder={"Enter Description Here"}
@@ -84,10 +129,11 @@ const RouteForm = ({initialValues,submitButtonText,onSubmit}) =>{
         labelStyle={styles.label} 
         multiline={true}
         onSubmitEditing={()=>Keyboard.dismiss()}
+        selectionColor={"white"}
         />
 
         {/* Add Area later */}
-        <Button style={{marginTop:100, width: 200, left:100,}} buttonStyle={{ backgroundColor:"#1359c4"}} title={submitButtonText} onPress={()=> {onSubmit(name,grade,type,latitude,longitude,description)}}/>
+        <Button style={{marginTop:40, width: 200, left:100,}} buttonStyle={{ backgroundColor:"#1359c4"}} title={submitButtonText} onPress={()=> {onSubmit(name,grade,type,selectedArea,latitude,longitude,description)}}/>
 
       </SafeAreaView>
     )
@@ -105,7 +151,7 @@ const styles=StyleSheet.create({
   },
   label:{
     color:"white",
-    paddingBottom:5
+    
   }
 })
 

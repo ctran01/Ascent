@@ -20,7 +20,7 @@ import { AsyncStorage } from 'react-native';
   }
   
   const addRoute = (dispatch)=>{
-    return async(name,grade,type,latitude,longitude,description,navigateAway,alertMessage)=>{
+    return async(name,grade,type,areaid,latitude,longitude,description,navigateAway,alertMessage)=>{
       const userid = await AsyncStorage.getItem('userid')
       const res = await apiServer.post("/route",{
         name: name,
@@ -30,8 +30,8 @@ import { AsyncStorage } from 'react-native';
         latitude: latitude,
         longitude: longitude,
         user_id: userid,
+        area_id: areaid
         //TODO area dropdown in route form
-        area_id: 1
       })
       if(navigateAway){
         navigateAway();
@@ -48,7 +48,7 @@ const getRoutes = (dispatch)=>{
   return async ()=>{
     
     const res = await apiServer.get("/route");
-    dispatch({type: "get_routes", payload: res.data})
+    dispatch({type: "get_routes", payload: res.data.routes})
   }
 }
 
@@ -96,15 +96,19 @@ const deleteRoute = (dispatch)=>{
 }
 
 const editRoute = (dispatch)=>{
-  return async(id,name,grade, type, latitude,longitude, description,navigateAway,alertMessage)=>{
+  return async(id,name,grade, type, areaid, latitude,longitude, description,navigateAway,alertMessage,failMessage)=>{
+    try{
+      const res = await apiServer.put(`/route/${id}`, {name,grade, type,areaid, latitude, longitude,description})
+      dispatch({type: "edit_route", payload: {id,name,grade,type,areaid,latitude,longitude,description}})
+      if(navigateAway){
+        navigateAway();
+      }
+      if(alertMessage){
+        alertMessage();
+      }
 
-    const res = await apiServer.put(`/route/${id}`, {name,grade, type, latitude, longitude,description})
-    dispatch({type: "edit_route", payload: {id,name,grade,type,latitude,longitude,description}})
-    if(navigateAway){
-      navigateAway();
-    }
-    if(alertMessage){
-      alertMessage();
+    }catch(err){
+        failMessage();
     }
   }
 }

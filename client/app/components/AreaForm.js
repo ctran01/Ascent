@@ -23,6 +23,7 @@ const AreaForm = ({initialValues,onSubmit,submitButtonText}) =>{
           inputContainerStyle={styles.inputContainter}
           inputStyle={styles.input}
           labelStyle={styles.label}
+          selectionColor={"white"}
         />
         <View style={{height:200}}>
         <Input 
@@ -38,6 +39,7 @@ const AreaForm = ({initialValues,onSubmit,submitButtonText}) =>{
           multiline={true}
           numberOfLines={10}
           onSubmitEditing={()=>Keyboard.dismiss()}
+          selectionColor={"white"}
         />
         </View>
         
