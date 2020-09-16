@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Spacer from '../components/Spacer';
 import ReferralContainer from '../components/ReferralContainer'
 import AboutUs from '../components/AboutUs'
+import { AntDesign } from '@expo/vector-icons'; 
 
 const HomeScreen = ({navigation}) => {
 
@@ -14,20 +15,27 @@ const HomeScreen = ({navigation}) => {
     const toggleModal = () =>{
         setModalVisable(!isModalVisable)
       }
-
+//"rgba(132, 153, 186,0.2)" Black tint color
     return (
-        <ImageBackground style={{flex:1}}source={require('../images/blue-light.jpg')}>
+        <ImageBackground style={{flex:1}}source={require('../images/Signinbackground.jpg')}>
+            <View style={{backgroundColor:"rgba(132, 153, 186,0.2)", height:300}}>
+                    <Image style={styles.image} source={require('../images/Ascent-logo-tagline.png')}></Image>
+            </View>
             <SafeAreaView >
-                <Image style={styles.image} source={require('../images/logo3.png')}></Image>
+                
                 <View style={styles.container}>
                     <TouchableOpacity onPress={()=> navigation.navigate('Search')}>
-                        <ImageBackground style={styles.imageButton} imageStyle={{borderRadius: 15}}source={require('../images/search.jpg')}>
+                        <ImageBackground style={styles.imageButton} imageStyle={{borderRadius: 15}}source={require('../images/search1.jpg')}>
                             <FontAwesome5 name="search" size={24} color="black" />
-                            <Text style={styles.buttonText}>  Search Areas {'&'} Routes</Text>
+                            <View>
+                                <Text style={styles.buttonText}>  Search Areas</Text>
+                                <Text style={styles.buttonText} >      {'&'} Routes</Text>
+                            </View>
+                            
                         </ImageBackground>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{ navigation.navigate('Map')}}>
-                        <ImageBackground style={styles.imageButton} imageStyle={{borderRadius: 15}}source={require('../images/maps.jpg')}>
+                        <ImageBackground style={styles.imageButton} imageStyle={{borderRadius: 15}}source={require('../images/maps.png')}>
                             <FontAwesome5 name="map" size={24} color="black" />
                             <Text style={styles.buttonText}>  Near Me</Text>
                         </ImageBackground>
@@ -35,10 +43,33 @@ const HomeScreen = ({navigation}) => {
                 </View>
                 <Spacer/>
                 <View style={styles.container}>
-                    <View style={{flexDirection:"column", alignItems:"center"}}>
-                        {/* <TouchableOpacity>
-                            <Text>Create Route</Text>
-                        </TouchableOpacity> */}
+                    <TouchableOpacity onPress={()=>navigation.navigate('CreateArea')}>
+                        {/* <Image style={{width:70,height:50}}source={require('../images/area-icon.png')}></Image> */}
+                        <Foundation name="mountains" size={45} color="white" />
+                        <Text style={{color:"white", alignSelf:"center"}}>Create</Text>
+                        <Text style={{color:"white", marginLeft:5}}>Area</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('CreateRoute')}>
+                        {/* <Image style={{width:60,height:60}}source={require('../images/add-route-icon.png')}></Image> */}
+                        <MaterialCommunityIcons name="map-marker-plus" size={45} color="white" />
+                        <Text style={{color:"white", alignSelf:"center",marginTop:5}}>Create</Text>
+                        <Text style={{color:"white"}}>Routes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('YourRoute')}>
+                        {/* <Image style={{width:60,height:60}}source={require('../images/favorite-icon.png')}></Image> */}
+                        <AntDesign name="staro" style={{marginLeft:5}} size={45} color="white" />
+                        <Text style={{color:"white", alignSelf:"center"}}>Followed</Text>
+                        <Text style={{color:"white", marginLeft:5}}>Routes</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Followed')}>
+                        <FontAwesome5 name="route" size={45} color="white" />
+                        {/* <Image style={{width:60,height:60}} source={require('../images/route-solid.svg')}></Image> */}
+                        <Text style={{color:"white", marginLeft:5, marginTop:6}}>Your</Text>
+                        <Text style={{color:"white"}}>Routes</Text>
+                    </TouchableOpacity>
+                    
+                    {/* <View style={{flexDirection:"column", alignItems:"center"}}>
+                        
                         <Button icon={<Foundation name="mountains" size={24} color="white" />} buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Create Area"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('CreateArea')}/>
                         <Button icon={<FontAwesome5 name="tree" size={24} color="white" />}buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Create Route"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('CreateRoute')}/>
                     </View>
@@ -46,7 +77,7 @@ const HomeScreen = ({navigation}) => {
                     <View style={{flexDirection:"column", alignItems:"center"}}>
                         <Button icon={<FontAwesome5 name="route" size={24} color="white" />} buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Your Routes"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('YourRoute')}/>
                         <Button icon={<MaterialCommunityIcons name="campfire" size={24} color="white" />}buttonStyle={styles.button} style={{paddingBottom: 15}} title={"Followed Routes"} titleStyle={{paddingLeft:10}} onPress={()=>navigation.navigate('Followed')}/>
-                    </View>
+                    </View> */}
                 </View>
                 <Spacer/>
                 
@@ -60,17 +91,18 @@ const HomeScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
     image:{
-        height: 150,
-        width: 400,
-        marginLeft: 20,
-        
+        height: 120,
+        width: 310,
+        marginLeft: 50,
+        marginTop:120
     },
     container:{
         flexDirection:"row", 
-        justifyContent:"space-around"
+        justifyContent:"space-around",
+        marginTop:60
     },
     imageButton:{
-        height: 300, 
+        height: 200, 
         width:190,
         // marginLeft:10,
         borderRadius:15,

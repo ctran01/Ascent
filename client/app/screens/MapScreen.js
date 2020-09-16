@@ -45,8 +45,8 @@ const Map = ({navigation}) => {
       
       {/* {err ? <Text>Location services have been disabled</Text>: null} */}
       <MapView style={{height:"100%"}}
-      onma
-      provider={PROVIDER_GOOGLE}
+      
+      
       initialRegion={{
         ...currentLocation.coords,
         // latitude: 30.2509,
