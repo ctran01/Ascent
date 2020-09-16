@@ -9,7 +9,8 @@ const Map = ({navigation}) => {
 
   const{state,getRoutes}= useContext(RouteContext)
   const[err,setErr] = useState(null)
-  const[currentLocation, setCurrentLocation] = useState({coords:{latitude: 29.74026722, longitude:-95.4825714}})
+  // const[currentLocation, setCurrentLocation] = useState({coords:{latitude: 29.74026722, longitude:-95.4825714}})
+  const[currentLocation, setCurrentLocation] = useState(null)
   
 
 
@@ -18,13 +19,13 @@ const Map = ({navigation}) => {
   const askPermission = async()=>{
     try{
       await requestPermissionsAsync();
-      // await watchPositionAsync({
-      //   accuracy: Accuracy.BestForNavigation,
-      //   timeInterval:1000,
-      //   distanceInterval: 10
-      // }, (location)=>{
-      //   setCurrentLocation(location)
-      // })
+      await watchPositionAsync({
+        accuracy: Accuracy.BestForNavigation,
+        timeInterval:1000,
+        distanceInterval: 10
+      }, (location)=>{
+        setCurrentLocation(location)
+      })
     }catch(err){
       setErr(err)
     }
@@ -39,8 +40,9 @@ const Map = ({navigation}) => {
     return <ActivityIndicator size ="large" style={{marginTop:200}}/>
   }
 
-  const circleRef = useRef(null)
+  // const circleRef = useRef(null)
   return (
+    
     <View>
       
       {/* {err ? <Text>Location services have been disabled</Text>: null} */}
@@ -60,7 +62,7 @@ const Map = ({navigation}) => {
         longitudeDelta: 3
       }}
       >
-        <Circle
+        {/* <Circle
           ref={circleRef}
           center={currentLocation.coords}
           radius={5000}
@@ -68,7 +70,13 @@ const Map = ({navigation}) => {
             strokeColor: "blue",
             fillColor: "blue",
           }))}
-        />
+        /> */}
+        <Circle
+          center={currentLocation.coords}
+          radius={5000}
+          strokeColor="blue"
+          fillColor="blue"
+          />
 
         {state.map(item =>{
           return(
