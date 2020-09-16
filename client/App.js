@@ -1,7 +1,7 @@
 import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import React,{useEffect} from 'react'
-
+import {Image} from 'react-native'
 import CreateAreaScreen from './app/screens/crudArea/CreateAreaScreen';
 import AreaDetailScreen from './app/screens/crudArea/AreaDetailScreen'
 import EditAreaScreen from './app/screens/crudArea/EditAreaScreen';
@@ -22,7 +22,8 @@ import {setNavigator} from './app/setNavigator'
 import {Provider as AreaProvider} from './app/context/AreaContext'
 import YourRouteScreen from './app/screens/YourRouteScreen'
 import {Provider as RouteProvider} from './app/context/RouteContext'
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons'; 
+import LandingScreen from './app/screens/LandingScreen';
 
 
 const homeFlow = createStackNavigator({
@@ -41,7 +42,8 @@ const homeFlow = createStackNavigator({
 
 homeFlow.navigationOptions ={
   title: 'Home',
-  tabBarIcon: <FontAwesome5 name="home" size={24} color="white" />
+  // tabBarIcon: <Image style={{height:60,width:10}}source={require('./app/images/home-icon.png')}></Image>
+  tabBarIcon: <Feather name="home" size={24} color="grey" />
 }
 
 
@@ -50,6 +52,7 @@ const navigator = createSwitchNavigator(
     //LoadingScreen checks for token and id in local storage
     // Loading: LoadingScreen,
     loginFlow: createStackNavigator({
+      Landing: LandingScreen,
       Signin: SigninScreen,
       Signup: SignupScreen
     }),
@@ -59,11 +62,11 @@ const navigator = createSwitchNavigator(
     },{
       tabBarOptions:{
         style:{
-          backgroundColor: 'rgba(0, 0, 0, .7)',
+          backgroundColor: 'white',
           // position: 'absolute',
           // bottom: 0,
           // left: 0,
-          height: 50
+          height: 45
         }
       }
     })

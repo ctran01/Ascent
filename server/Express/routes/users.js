@@ -16,7 +16,7 @@ validateUserFields = [
         .withMessage("Please provide a valid email"),
     check("password")
         .exists({ checkFalsy: true })
-        .withMessage("Please provide a valide email")
+        .withMessage("Please provide a valide password")
 ]
 
 const validateEmailPassword = [
@@ -25,7 +25,7 @@ const validateEmailPassword = [
         .withMessage("Please provide a valid email"),
     check("password")
         .exists({ checkFalsy: true })
-        .withMessage("Please provide a valide email")
+        .withMessage("Please provide a valid password")
 ]
 
 //signing up

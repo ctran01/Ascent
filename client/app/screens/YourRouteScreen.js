@@ -54,8 +54,8 @@ const YourRouteScreen = ({navigation}) => {
 
   console.log(areaState, "Area Context State")
   return (
-    <ImageBackground style={{flex:1}}source={require('../images/blue-light.jpg')}>
-      <SafeAreaView>
+    <ImageBackground style={{flex:1}}source={require('../images/Signinbackground.jpg')}>
+    <SafeAreaView>
         <Text h4 style={{marginLeft:15, color: "white", marginTop:15,marginBottom:15, fontWeight:"bold"}}>Your Created Areas</Text>
         <ScrollView>
           <AreaList items={areaState}></AreaList>

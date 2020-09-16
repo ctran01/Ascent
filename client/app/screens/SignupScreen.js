@@ -22,12 +22,12 @@ const SignupScreen = ({navigation}) => {
   }
 
   return (
-    <ImageBackground style={styles.background} source={require("../images/background2.jpg")}>
+    <ImageBackground style={styles.background} source={require("../images/Signinbackground.jpg")}>
     <SafeAreaView>
-      <Image style={styles.image} source={require('../images/logo3.png')}></Image>
-      <View style={{backgroundColor:"rgba(132, 153, 186,0.2)"}}>
+      <Spacer></Spacer>
+      <Spacer/>
       <Spacer>
-        <Text h3>Sign Up for Ascent</Text>
+        <Text h3 style={{fontWeight:"bold"}}>Sign Up</Text>
       </Spacer>
       <Input placeholder={"  Username"}
         placeholderTextColor="black"
@@ -61,7 +61,7 @@ const SignupScreen = ({navigation}) => {
        />
      {state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text>: null}
       <Spacer>
-       <Button title={"Create Account"} buttonStyle={{backgroundColor:"#1359c4"}} onPress={ ()=> signup({username,email,password})} />
+       <Button style={styles.button} title={"Create Account"} buttonStyle={{backgroundColor:"#1359c4"}} onPress={ ()=> signup({username,email,password})} />
       </Spacer>
     <NavigationEvents 
       //  onWillFocus={()=>{}} Right before navigating to screen
@@ -72,12 +72,14 @@ const SignupScreen = ({navigation}) => {
     
     <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
       <Spacer>
-        <Text style={styles.signInText}>Already have an account? Sign in here</Text>
+        <Text style={styles.signInText}>Already have an account? Sign In</Text>
       </Spacer>
     </TouchableOpacity>
-    <Spacer/>
     
-      </View>
+    
+      
+
+      <Image style={styles.image} source={require('../images/Ascent-logo-tagline.png')}></Image>
       <Button buttonStyle={{backgroundColor:"transparent"}}style={styles.modal} titleStyle={{color:"white"}}title="About Us" onPress={toggleModal}/>
       <AboutUs toggleModal={toggleModal} isModalVisable={isModalVisable}/>
     </SafeAreaView>
@@ -98,10 +100,10 @@ const styles=StyleSheet.create({
     flex:1
   },
   image:{
-    width:400,
-    height:130,
-    marginLeft:20,
-    marginTop: 20
+    width:350,
+    height:140,
+    marginLeft:30,
+    marginTop: 60
   },
   errorMessage:{
     color: "red",
@@ -109,7 +111,8 @@ const styles=StyleSheet.create({
     marginLeft: 15
   },
   signInText:{
-    color: "blue"
+    color: "black",
+    marginLeft:80
   },
   modal:{
     width:100,
@@ -117,7 +120,12 @@ const styles=StyleSheet.create({
     marginLeft:160,
     marginTop:30,
     
-  }
+  },
+  button:{
+    width:350,
+    marginLeft:20,
+    marginTop:10,
+  },
 
 })
 export default SignupScreen;

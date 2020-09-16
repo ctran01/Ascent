@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 AccountScreen.navigationOptions =()=>{
     return{
         title: 'Account',
-        tabBarIcon: <MaterialIcons name="person" size={24} color="white" />
+        tabBarIcon: <MaterialIcons name="portrait" size={24} color="grey" />
     }
 }
 export default AccountScreen;

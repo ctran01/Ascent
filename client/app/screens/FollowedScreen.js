@@ -31,7 +31,7 @@ const FollowedScreen = ({navigation}) => {
     // console.log(areaState,"Area State Follow Screen")
 
     return (
-        <ImageBackground style={{flex:1}}source={require('../images/blue-light.jpg')}>
+        <ImageBackground style={{flex:1}}source={require('../images/Signinbackground.jpg')}>
             <SafeAreaView> 
             <Text h4 style={{marginLeft:15, color: "white", marginTop:15,marginBottom:15, fontWeight:"bold"}}>Followed Areas</Text>
                 <ScrollView>
