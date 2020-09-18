@@ -35,7 +35,7 @@ const RouteDetailPage = ({navigation}) => {
     }
 
     return (
-        <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
+        <ImageBackground style={{flex:1}}source={require('../../images/Signinbackground.jpg')}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <SafeAreaView>
                     {route.image_url ? <Image style={styles.image} source={{uri: route.image_url}}/> : <Image style={styles.image} source={require('../../images/placeholderImage.jpeg')}/>}

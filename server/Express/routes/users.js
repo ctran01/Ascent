@@ -28,6 +28,15 @@ const validateEmailPassword = [
         .withMessage("Please provide a valid password")
 ]
 
+const userNotFound = (id) =>{
+    const err = new Error('User was not found');
+    err.status = 404
+    err.title = "User was not found";
+    return err
+  }
+  
+
+
 //signing up
 router.post('/signup', validateUserFields, asyncHandler(async (req, res) => {
     const { username, email, password } = req.body // Takes content from form
@@ -38,7 +47,10 @@ router.post('/signup', validateUserFields, asyncHandler(async (req, res) => {
         
         res.status(201).json({
             user: { id: user.id },
-            token
+            token,
+            info: {username: user.username,
+                email: user.email,
+                image_url: user.image_url}
         })
 
     }catch(err){
@@ -72,7 +84,10 @@ router.post('/signin', validateEmailPassword, asyncHandler(async (req, res, next
 
     res.json({
         token,
-        user: { id: user.id }
+        user: { id: user.id },
+        info: {username: user.username,
+                email: user.email,
+                image_url: user.image_url}
     });
 
 
@@ -80,5 +95,41 @@ router.post('/signin', validateEmailPassword, asyncHandler(async (req, res, next
 
 }
 ))
+
+//Get User
+router.get('/user/:userid', asyncHandler(async(req,res,next)=>{
+    const userId = parseInt(req.params.userid,10)
+    
+        const user = await User.findOne({
+            where: {id: userId},
+            attributes: ['id','username', 'email','image_url']
+        })
+        if(user){
+
+            res.json({user})
+        }else{
+            next(userNotFound(userId))
+        }
+}))
+
+
+
+//Edit User
+router.put('/user/:userid/update', asyncHandler(async(req,res,next)=>{
+    const userId = parseInt(req.params.userid,10)
+    const{username,email,photo} = req.body
+
+    const user = await User.update({username: username, email:email, image_url: photo},{
+        where:{
+            id: userId
+        }
+    })
+    if(user){
+
+        res.status(200).send({"status":"updated!"})
+    }else{
+        next(userNotFound(userId))
+    }
+}))
 
 module.exports = router;

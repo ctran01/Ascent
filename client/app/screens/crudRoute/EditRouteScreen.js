@@ -10,7 +10,7 @@ const EditRouteScreen = ({navigation}) => {
   const id = navigation.getParam("id");
   const route = state.find((route)=> route.id === id)
   return (
-    <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
+    <ImageBackground style={{flex:1}}source={require('../../images/Signinbackground.jpg')}>
 
     <View>
       <RouteForm 

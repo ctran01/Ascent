@@ -8,6 +8,7 @@ const areasRouter = require("./routes/areas")
 const routesRouter = require('./routes/route')
 const followersRouter = require('./routes/followers')
 const searchRouter = require('./routes/search')
+
 const app = express();
 
 app.use(bodyParser.json());

@@ -7,8 +7,8 @@ const CreateAreaScreen = ({navigation}) => {
 const {addArea} = useContext(AreaContext);
 
   return (
-    <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
-      <Spacer/>
+    <ImageBackground style={{flex:1}}source={require('../../images/Signinbackground.jpg')}>
+    <Spacer/>
       <View>
         <AreaForm submitButtonText={"Add Area"} 
         onSubmit={(name,description)=>{

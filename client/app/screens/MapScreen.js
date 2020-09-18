@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, ActivityIndicator, Image} from 'react-native';
 import MapView , {PROVIDER_GOOGLE, Marker, Circle, Callout} from 'react-native-maps';
 import apiServer from '../api/apiServer'
 import {Context as RouteContext} from '../context/RouteContext'
-import {requestPermissionsAsync, watchPositionAsync,Accuracy} from 'expo-location'
+import {requestPermissionsAsync, watchPositionAsync,Accuracy, getCurrentPositionAsync} from 'expo-location'
 
 const Map = ({navigation}) => {
 
@@ -32,7 +32,14 @@ const Map = ({navigation}) => {
   }
 
   useEffect(()=>{
-    askPermission();
+    (async ()=>{
+      let {status} = await requestPermissionsAsync();
+      if(status !== 'granted'){
+        alert('Permission to access location was denied')
+      }
+      let location = await getCurrentPositionAsync({})
+      setCurrentLocation(location)
+    })();
     getRoutes()
   },[])
   

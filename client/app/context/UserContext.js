@@ -10,7 +10,7 @@ const userReducer = (state,action) =>{
     case 'clear_error_message':
       return {...state, errorMessage: ''}
     case 'signin':
-      return {token: action.payload.token, errorMessage:'', userid: action.payload.userid}
+      return {token: action.payload.token, errorMessage:'', userid: action.payload.userid, info: action.payload.info}
     case 'signout':
       return {token: null, errorMessage: '', userid: null}
     default:
@@ -47,7 +47,7 @@ const signup = (dispatch) =>{
       const id = res.data.user.id.toString()
       await AsyncStorage.setItem('token', res.data.token) //Sets token to "local storage"
       await AsyncStorage.setItem('userid',id)
-      dispatch({type: 'signin', payload: {token: res.data.token, userid: id}}) //Set token to state
+      dispatch({type: 'signin', payload: {token: res.data.token, userid: id, info: res.data.info}}) //Set token to state
       navigate('mainFlow')
     }catch(err){
       console.log(err)
@@ -64,7 +64,7 @@ const signin = (dispatch) =>{
       await AsyncStorage.setItem('token',res.data.token)
       await AsyncStorage.setItem('userid',id)
       
-      dispatch({type: 'signin', payload: {token: res.data.token, userid: id}})
+      dispatch({type: 'signin', payload: {token: res.data.token, userid: id, info: res.data.info}})
       navigate('mainFlow')
     }catch(err){
       console.log(err)
@@ -83,4 +83,4 @@ const signout = (dispatch) =>{
 }
 
 
-export const {Provider,Context} = createDataContext( userReducer, {signin,signout,signup,clearErrorMessage,tryLocalSignin}, {token: null, errorMessage:'', userid: null})
+export const {Provider,Context} = createDataContext( userReducer, {signin,signout,signup,clearErrorMessage,tryLocalSignin}, {token: null, errorMessage:'', userid: null, info: null})

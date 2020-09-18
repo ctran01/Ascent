@@ -18,7 +18,7 @@ const HomeScreen = ({navigation}) => {
 //"rgba(132, 153, 186,0.2)" Black tint color
     return (
         <ImageBackground style={{flex:1}}source={require('../images/Signinbackground.jpg')}>
-            <View style={{backgroundColor:"rgba(132, 153, 186,0.2)", height:300}}>
+            <View style={{backgroundColor:"rgba(52, 55, 60,0.2)", height:300}}>
                     <Image style={styles.image} source={require('../images/Ascent-logo-tagline.png')}></Image>
             </View>
             <SafeAreaView >
