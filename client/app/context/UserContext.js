@@ -12,7 +12,7 @@ const userReducer = (state,action) =>{
     case 'signin':
       return {token: action.payload.token, errorMessage:'', userid: action.payload.userid, info: action.payload.info}
     case 'signout':
-      return {token: null, errorMessage: '', userid: null}
+      return {token: null, errorMessage: '', userid: null, info: null}
     default:
       return state;
   }
