@@ -9,8 +9,8 @@ const Map = ({navigation}) => {
 
   const{state,getRoutes}= useContext(RouteContext)
   const[err,setErr] = useState(null)
-  // const[currentLocation, setCurrentLocation] = useState({coords:{latitude: 29.74026722, longitude:-95.4825714}})
-  const[currentLocation, setCurrentLocation] = useState(null)
+  const[currentLocation, setCurrentLocation] = useState({coords:{latitude: 30.266666, longitude:-97.733330}})
+  // const[currentLocation, setCurrentLocation] = useState(null)
   
 
 
@@ -37,8 +37,8 @@ const Map = ({navigation}) => {
       if(status !== 'granted'){
         alert('Permission to access location was denied')
       }
-      let location = await getCurrentPositionAsync({})
-      setCurrentLocation(location)
+      // let location = await getCurrentPositionAsync({})
+      // setCurrentLocation(location)
     })();
     getRoutes()
   },[])
@@ -58,8 +58,8 @@ const Map = ({navigation}) => {
       
       initialRegion={{
         ...currentLocation.coords,
-        // latitude: 30.2509,
-        // longitude: -97.7969,
+        // latitude: 30.266666,
+        // longitude: -97.733330,
         latitudeDelta: 3,
         longitudeDelta: 3
       }}
