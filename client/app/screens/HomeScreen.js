@@ -18,7 +18,7 @@ const HomeScreen = ({navigation}) => {
 //"rgba(132, 153, 186,0.2)" Black tint color
     return (
         <ImageBackground style={{flex:1}}source={require('../images/Signinbackground.jpg')}>
-            <View style={{backgroundColor:"rgba(132, 153, 186,0.2)", height:300}}>
+            <View style={{backgroundColor:"rgba(52, 55, 60,0.2)", height:290}}>
                     <Image style={styles.image} source={require('../images/Ascent-logo-tagline.png')}></Image>
             </View>
             <SafeAreaView >
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         height: 120,
         width: 310,
         marginLeft: 50,
-        marginTop:120
+        marginTop:130
     },
     container:{
         flexDirection:"row", 
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     },
     imageButton:{
         height: 200, 
-        width:190,
+        width: 175,
         // marginLeft:10,
         borderRadius:15,
         flexDirection:"row",

@@ -53,7 +53,7 @@ const AreaDetailPage = ({navigation}) => {
         //if asyncstorage id === area.user_id show delete/edit icons
     // console.log(area, "Area Detail state")
     return (
-        <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
+        <ImageBackground style={{flex:1}}source={require('../../images/Signinbackground.jpg')}>
             <ScrollView
             showsVerticalScrollIndicator={false}>
                 <SafeAreaView>

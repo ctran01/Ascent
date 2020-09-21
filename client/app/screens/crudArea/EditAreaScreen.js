@@ -32,7 +32,7 @@ const EditAreaScreen = ({navigation}) => {
 
 
   return (
-    <ImageBackground style={{flex:1}}source={require('../../images/blue-light.jpg')}>
+    <ImageBackground style={{flex:1}}source={require('../../images/Signinbackground.jpg')}>
 
     <View>
 
