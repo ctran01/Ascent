@@ -55,13 +55,13 @@ const HomeScreen = ({navigation}) => {
                         <Text style={{color:"white", alignSelf:"center",marginTop:5}}>Create</Text>
                         <Text style={{color:"white"}}>Routes</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>navigation.navigate('YourRoute')}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Followed')}>
                         {/* <Image style={{width:60,height:60}}source={require('../images/favorite-icon.png')}></Image> */}
                         <AntDesign name="staro" style={{marginLeft:5}} size={45} color="white" />
                         <Text style={{color:"white", alignSelf:"center"}}>Followed</Text>
                         <Text style={{color:"white", marginLeft:5}}>Routes</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>navigation.navigate('Followed')}>
+                    <TouchableOpacity onPress={()=>navigation.navigate('YourRoute')}>
                         <FontAwesome5 name="route" size={45} color="white" />
                         {/* <Image style={{width:60,height:60}} source={require('../images/route-solid.svg')}></Image> */}
                         <Text style={{color:"white", marginLeft:5, marginTop:6}}>Your</Text>

@@ -40,12 +40,13 @@ const Map = ({navigation}) => {
       // let location = await getCurrentPositionAsync({})
       // setCurrentLocation(location)
     })();
+    setCurrentLocation({coords:{latitude: 30.266666, longitude:-97.733330}})
     getRoutes()
   },[])
   
-  if(!currentLocation){
-    return <ActivityIndicator size ="large" style={{marginTop:200}}/>
-  }
+  // if(!currentLocation){
+  //   return <ActivityIndicator size ="large" style={{marginTop:200}}/>
+  // }
 
   // const circleRef = useRef(null)
   return (
@@ -117,7 +118,7 @@ const styles=StyleSheet.create({
 Map.navigationOptions = ({navigation}) => {
   
   return {
-    title: "Search" ,
+    title: "Map" ,
     headerTitleStyle: {color: 'white'},
     headerBackTitleVisible: false,
     headerStyle: {backgroundColor: 'black', }

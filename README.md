@@ -1,7 +1,6 @@
 # Ascent
 
 
-
 **Table of Contents**
   * [Introduction](#Introduction)
   * [Technologies](#Technologies)
@@ -14,11 +13,10 @@
 ## Introduction
 Ascent is a mobile application that allows users to find information about climbing areas and routes near them as well as create new areas/routes that they might find on their climbing adventure. 
 
-
 ## Technologies
 Project is created wtih 
   * Javascript ES6
-
+  * React-Native
   * Expo
   * ReactJS
   * Postgres
@@ -29,7 +27,6 @@ Project is created wtih
   * Heroku
 
 
-
 ## Features
 
 A few of the main features of Ascent are:
@@ -37,7 +34,6 @@ A few of the main features of Ascent are:
   * User Auth via JSON web tokens
   * Bcrypt hashing for password security
   * CRUD for routes, areas, and users
-
   * Be able to follow routes and areas through polymorphic association
   * Search functionality for areas/routes
   * Maps integration that shows nearby areas/routes
@@ -50,6 +46,7 @@ The frontend styling and functionality was created using React Native and Expo. 
 ![Ascent Landing](documentation/images/AscentLanding.png)
 ![Ascent Signin](documentation/images/AscentSignIn.png)
 ![Ascent Home](documentation/images/AscentHome.png)  
+![Ascent Maps](documentation/images/AscentMaps.png)  
 
 
 
@@ -68,5 +65,4 @@ The backend consists of several RESTful routes that feed data from a Postgres Da
   * Add photos to existing routes
   * Comment sections
   * Directions to the areas 
-
 
