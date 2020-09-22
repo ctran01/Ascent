@@ -43,9 +43,9 @@ const Map = ({navigation}) => {
     getRoutes()
   },[])
   
-  if(!currentLocation){
-    return <ActivityIndicator size ="large" style={{marginTop:200}}/>
-  }
+  // if(!currentLocation){
+  //   return <ActivityIndicator size ="large" style={{marginTop:200}}/>
+  // }
 
   // const circleRef = useRef(null)
   return (
@@ -117,7 +117,7 @@ const styles=StyleSheet.create({
 Map.navigationOptions = ({navigation}) => {
   
   return {
-    title: "Search" ,
+    title: "Map" ,
     headerTitleStyle: {color: 'white'},
     headerBackTitleVisible: false,
     headerStyle: {backgroundColor: 'black', }
