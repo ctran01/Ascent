@@ -44,8 +44,9 @@ A few of the main features of Ascent are:
 The frontend styling and functionality was created using React Native and Expo. It consists of several screen components that allow continuous navigation between each screen. 
 
 ![Ascent Landing](documentation/images/AscentLanding.png)
-![Ascent Signin](documentation/images/AscentSignin.png)
+![Ascent Signin](documentation/images/AscentSignIn.png)
 ![Ascent Home](documentation/images/AscentHome.png)  
+![Ascent Maps](documentation/images/AscentMaps.png)  
 
 
 
