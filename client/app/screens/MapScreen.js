@@ -40,6 +40,7 @@ const Map = ({navigation}) => {
       // let location = await getCurrentPositionAsync({})
       // setCurrentLocation(location)
     })();
+    setCurrentLocation({coords:{latitude: 30.266666, longitude:-97.733330}})
     getRoutes()
   },[])
   
