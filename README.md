@@ -1,6 +1,7 @@
 # Ascent
 
 <p align="center"> <img height="400" width="200" alt="home" src="documentation/images/AscentHome.png"> </p>
+
 ## Introduction
 
 Ascent is a mobile application that allows users to find information about climbing areas and routes near them as well as create new areas/routes that they might find on their climbing adventure.
