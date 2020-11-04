@@ -132,15 +132,15 @@ User.belongsToMany(models.User, {
 <p align="center"> <img height="400" width="200" alt="landing" src="documentation/images/AscentLanding.png"> </p>
 
 2. Users can find areas and routes near them via a map that updates based on their location. (Must allow location services)
-<p align="center"> <img height="400" width="200" alt="map" src="documentation/images/map.png"> </p>
+<p align="center"> <img height="400" width="200" alt="map" src="documentation/images/map.PNG"> </p>
 
 3. Users can add areas and routes they come across.
 
-<p align="center"> <img height="400" width="200" alt="form" src="documentation/images/form.png"> </p>
+<p align="center"> <img height="400" width="200" alt="form" src="documentation/images/form.PNG"> </p>
 
 4. Users can search up all areas and maps that were added to the database by themselves or other users.
 
-<p align="center"> <img height="400" width="200" alt="search" src="documentation/images/search.png"> </p>
+<p align="center"> <img height="400" width="200" alt="search" src="documentation/images/search.PNG"> </p>
 
 Other features of Ascent include:
 
