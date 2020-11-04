@@ -1,5 +1,6 @@
 # Ascent
 
+<p align="center"> <img height="400" width="200" alt="landing" src="documentation/images/AscentHome.png"> </p>
 ## Introduction
 
 Ascent is a mobile application that allows users to find information about climbing areas and routes near them as well as create new areas/routes that they might find on their climbing adventure.
@@ -131,15 +132,15 @@ User.belongsToMany(models.User, {
 <p align="center"> <img height="400" width="200" alt="landing" src="documentation/images/AscentLanding.png"> </p>
 
 2. Users can find areas and routes near them via a map that updates based on their location. (Must allow location services)
-<p align="center"> <img height="400" width="200" alt="landing" src="documentation/images/map.png"> </p>
+<p align="center"> <img height="400" width="200" alt="map" src="documentation/images/map.png"> </p>
 
 3. Users can add areas and routes they come across.
 
-<p align="center"> <img height="400" width="200" alt="landing" src="documentation/images/form.png"> </p>
+<p align="center"> <img height="400" width="200" alt="form" src="documentation/images/form.png"> </p>
 
 4. Users can search up all areas and maps that were added to the database by themselves or other users.
 
-<p align="center"> <img height="400" width="200" alt="landing" src="documentation/images/search.png"> </p>
+<p align="center"> <img height="400" width="200" alt="search" src="documentation/images/search.png"> </p>
 
 Other features of Ascent include:
 
